@@ -2,3 +2,4 @@ node_modules
 package-log.json
 package.json
 query.sql
+.env

@@ -1,11 +1,26 @@
 const Pool = require("../config/Database");
 
-const getProduct = () => {
+const getProduct = (search, sortby, sort, limit, page) => {
   return Pool.query(
     `SELECT product.id, product.product_name, category.category_name as category_name, product.stock, product.price
     FROM product 
     INNER JOIN category 
-    ON product.category_id = category.id`
+    ON product.category_id = category.id
+    WHERE product.product_name
+    ILIKE '%${search}%'
+    ORDER BY ${sortby} ${sort}
+    LIMIT ${limit}
+    OFFSET ${(page - 1) * limit}`
+  );
+};
+
+const getProductById = (id) => {
+  return Pool.query(
+    `SELECT product.id, product.product_name, category.category_name as category_name, product.stock, product.price
+    FROM product 
+    INNER JOIN category 
+    ON product.category_id = category.id
+    WHERE product.id = '${id}'`
   );
 };
 
@@ -33,28 +48,10 @@ const deleteProduct = (id) => {
   );
 };
 
-const searchProduct = (name) => {
-  return Pool.query(
-    `SELECT * FROM product 
-    WHERE product_name 
-    ILIKE '%${name}%'`
-  );
-};
-
-const filterProduct = (sortby, sort, limit, page) => {
-  return Pool.query(
-    `SELECT * FROM product 
-    ORDER BY ${sortby} ${sort} 
-    LIMIT ${limit} 
-    OFFSET ${(page - 1) * limit}`
-  );
-};
-
 module.exports = {
   getProduct,
+  getProductById,
   createProduct,
   updateProduct,
   deleteProduct,
-  searchProduct,
-  filterProduct,
 };
