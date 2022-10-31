@@ -127,7 +127,7 @@ body:
 /pay_method/1
 ```
 
-# PAY_METHOD
+# PAY_STATUS
 [GET] get all payment_status
 ```
 /pay_status
