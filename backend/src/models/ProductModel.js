@@ -2,7 +2,7 @@ const Pool = require("../config/Database");
 
 const getProduct = (search, sortby, sort, limit, page) => {
   return Pool.query(
-    `SELECT product.id, product.product_name, category.category_name as category_name, product.stock, product.price
+    `SELECT product.id, product.product_name, category.category_name as category_name, product.stock, product.price, product.photo
     FROM product 
     INNER JOIN category 
     ON product.category_id = category.id
@@ -16,7 +16,7 @@ const getProduct = (search, sortby, sort, limit, page) => {
 
 const getProductById = (id) => {
   return Pool.query(
-    `SELECT product.id, product.product_name, category.category_name as category_name, product.stock, product.price
+    `SELECT product.id, product.product_name, category.category_name as category_name, product.stock, product.price, product.photo
     FROM product 
     INNER JOIN category 
     ON product.category_id = category.id
@@ -25,10 +25,10 @@ const getProductById = (id) => {
 };
 
 const createProduct = (data) => {
-  const { product_name, category_id, stock, price } = data;
+  const { product_name, category_id, stock, price, photo } = data;
   return Pool.query(
-    `INSERT INTO product (product_name, category_id, stock, price) 
-    VALUES ('${product_name}', '${category_id}', '${stock}', '${price}')`
+    `INSERT INTO product (product_name, category_id, stock, price, photo) 
+    VALUES ('${product_name}', '${category_id}', '${stock}', '${price}', '${photo}')`
   );
 };
 
