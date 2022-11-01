@@ -21,7 +21,7 @@ const findEmail = (email) => {
   return new Promise((resolve, reject) => {
     Pool.query(
       `SELECT * FROM users
-        WHERE email = '${email}`,
+        WHERE email = '${email}'`,
       (err, result) => {
         if (!err) {
           resolve(result);

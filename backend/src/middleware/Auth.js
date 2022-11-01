@@ -1,10 +1,10 @@
 const { response } = require(`./Common`);
 const jwt = require("jsonwebtoken");
 
-var key = process.env.JWT_KEY;
+let key = process.env.JWT_KEY;
 
 const role = (req, res, next) => {
-  if (req.params.role == `admin` || req.params.role == `customer`) {
+  if (req.params.role == "admin" || req.params.role == "customer") {
     return next();
   }
   return response(res, 404, false, null, `Wrong user's role!`);
@@ -12,7 +12,7 @@ const role = (req, res, next) => {
 
 const protect = (req, res, next) => {
   try {
-    var token;
+    let token;
     if (req.headers.authorization) {
       let auth = req.headers.authorization;
       token = auth.split(" ")[1];

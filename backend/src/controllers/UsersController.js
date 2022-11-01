@@ -5,7 +5,7 @@ const { v4: uuidv4 } = require("uuid");
 const { generateToken } = require(`../helper/Auth`);
 
 const usersController = {
-  insert: async (req, res, next) => {
+  register: async (req, res, next) => {
     let {
       rows: [users],
     } = await findEmail(req.body.email);
@@ -29,7 +29,7 @@ const usersController = {
     let salt = bcrypt.genSaltSync(10);
     let password = bcrypt.hashSync(req.body.password);
     let data = {
-      id: uuid4(),
+      id: uuidv4(),
       email: req.body.email,
       password,
       fullname: req.body.fullname,
@@ -44,7 +44,7 @@ const usersController = {
       }
     } catch (err) {
       console.log(err);
-      response(res, 404, false, err, " Register failed");
+      response(res, 404, false, err, "Register failed");
     }
   },
 
