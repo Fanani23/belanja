@@ -33,10 +33,10 @@ const createProduct = (data) => {
 };
 
 const updateProduct = (id, data) => {
-  const { product_name, category_id, stock, price } = data;
+  const { product_name, category_id, stock, price, photo } = data;
   return Pool.query(
     `UPDATE product 
-    SET product_name='${product_name}', category_id='${category_id}', stock='${stock}', price='${price}' 
+    SET product_name='${product_name}', category_id='${category_id}', stock='${stock}', price='${price}', photo='${photo}' 
     WHERE id='${id}'`
   );
 };
