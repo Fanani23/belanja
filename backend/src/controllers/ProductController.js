@@ -47,6 +47,13 @@ const productController = {
       });
   },
   update: (req, res, next) => {
+    const Port = process.env.PORT;
+    const Host = process.env.HOST;
+    const photo = req.file.filename;
+    const url = `http://${Host}:${Port}/image/${photo}`;
+    req.body.photo = url;
+    req.body.stock = parseInt(req.body.stock);
+    req.body.price = parseInt(req.body.price);
     productModel
       .updateProduct(req.params.id, req.body)
       .then((result) => {
