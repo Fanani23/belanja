@@ -31,8 +31,9 @@ const productController = {
 
   create: (req, res, next) => {
     const Port = process.env.PORT;
+    const Host = process.env.HOST;
     const photo = req.file.filename;
-    const url = `http://localhost:${Port}/image/${photo}`;
+    const url = `http://${Host}:${Port}/image/${photo}`;
     req.body.photo = url;
     req.body.stock = parseInt(req.body.stock);
     req.body.price = parseInt(req.body.price);
