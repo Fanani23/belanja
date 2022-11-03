@@ -2,13 +2,28 @@ const payStatusModel = require("../models/PayStatusModel");
 
 const payStatusController = {
   get: (req, res, next) => {
+    const search = req.query.search || "";
+    const sortby = req.query.sortby || "payment_status";
+    const sort = req.query.sort || "asc";
+    const limit = req.query.limit || 10;
+    const page = req.query.page || 1;
     payStatusModel
-      .getPayStatus()
+      .getPayStatus(search, sortby, sort, limit, page)
       .then((result) => {
         res.status(200).send({ result: result.rows });
       })
       .catch((err) => {
         res.status(404).send({ msg: "Can't get payment status data!", err });
+      });
+  },
+  getByID: (req, res, next) => {
+    payStatusModel
+      .getPayStatusById(req.params.id)
+      .then((result) => {
+        res.status(200).send({ result: result.rows });
+      })
+      .catch((err) => {
+        res.status(404).send({ msg: "Failed", err });
       });
   },
   create: (req, res, next) => {
@@ -38,31 +53,6 @@ const payStatusController = {
       .deletePayStatus(req.params.id)
       .then((result) => {
         res.status(200).send({ msg: "Payment status data deleted!" });
-      })
-      .catch((err) => {
-        res.status(404).send({ msg: "Failed", err });
-      });
-  },
-  search: (req, res, next) => {
-    const name = req.query.name || "";
-    payStatusModel
-      .searchPayStatus(name)
-      .then((result) => {
-        res.status(200).send({ result: result.rows });
-      })
-      .catch((err) => {
-        res.status(404).send({ msg: "Failed", err });
-      });
-  },
-  filter: (req, res, next) => {
-    const sortby = req.query.sortby || "payment_status";
-    const sort = req.query.sort || "asc";
-    const limit = req.query.limit || 10;
-    const page = req.query.page || 1;
-    payStatusModel
-      .filterPayStatus(sortby, sort, limit, page)
-      .then((result) => {
-        res.status(200).send({ result: result.rows });
       })
       .catch((err) => {
         res.status(404).send({ msg: "Failed", err });

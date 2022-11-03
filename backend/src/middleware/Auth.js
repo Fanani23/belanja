@@ -10,6 +10,19 @@ const role = (req, res, next) => {
   return response(res, 404, false, null, `Wrong user's role!`);
 };
 
+const roleAdmin = (req, res, next) => {
+  let token;
+  let auth = req.headers.authorization;
+  token = auth.split(" ")[1];
+  let decode = jwt.verify(token, key);
+  let role = decode.role;
+  if (role == "admin") {
+    return next();
+  } else {
+    return response(req, 404, false, null, "User role is not admin!");
+  }
+};
+
 const protect = (req, res, next) => {
   try {
     let token;
@@ -34,4 +47,4 @@ const protect = (req, res, next) => {
   }
 };
 
-module.exports = { role, protect };
+module.exports = { role, protect, roleAdmin };

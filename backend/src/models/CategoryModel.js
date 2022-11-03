@@ -1,7 +1,23 @@
 const Pool = require("../config/Database");
 
-const getCategory = () => {
-  return Pool.query(`SELECT * FROM category`);
+const getCategory = (search, sortby, sort, limit, page) => {
+  return Pool.query(
+    `SELECT category.id, category.category_name
+    FROM category
+    WHERE category.category_name
+    ILIKE '%${search}%'
+    ORDER BY ${sortby} ${sort}
+    LIMIT ${limit}
+    OFFSET ${(page - 1) * limit}`
+  );
+};
+
+const getCategoryById = (id) => {
+  return Pool.query(
+    `SELECT category.id, category.category_name
+    FROM category
+    WHERE category.id = '${id}}'`
+  );
 };
 
 const createCategory = (data) => {
@@ -22,28 +38,10 @@ const deleteCategory = (id) => {
   return Pool.query(`DELETE FROM category WHERE id='${id}'`);
 };
 
-const searchCategory = (name) => {
-  return Pool.query(
-    `SELECT * FROM category
-    WHERE category_name
-    ILIKE '%${name}%'`
-  );
-};
-
-const filterCategory = (sortby, sort, limit, page) => {
-  return Pool.query(
-    `SELECT * FROM category
-    ORDER BY ${sortby} ${sort}
-    LIMIT ${limit}
-    OFFSET ${(page - 1) * limit}`
-  );
-};
-
 module.exports = {
   getCategory,
+  getCategoryById,
   createCategory,
   updateCategory,
   deleteCategory,
-  searchCategory,
-  filterCategory,
 };

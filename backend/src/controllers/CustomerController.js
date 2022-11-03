@@ -2,14 +2,29 @@ const customerModel = require("../models/CustomerModel");
 
 const customerController = {
   get: (req, res, next) => {
+    const search = req.query.search || "";
+    const sortby = req.query.sortby || "customer_name";
+    const sort = req.query.sort || "asc";
+    const limit = req.query.limit || 10;
+    const page = req.query.page || 1;
     customerModel
-      .getCustomer()
+      .getCustomer(search, sortby, sort, limit, page)
       .then((result) => {
         res.status(200).send({ result: result.rows });
       })
       .catch((err) => [
         res.status(404).send({ msg: "Can't get customer data!", err }),
       ]);
+  },
+  getByID: (req, res, next) => {
+    customerModel
+      .getCustomerById(req.params.id)
+      .then((result) => {
+        res.status(200).send({ result: result.rows });
+      })
+      .catch((err) => {
+        res.status(404).send({ msg: "Failed", err });
+      });
   },
   create: (req, res, next) => {
     customerModel
@@ -39,31 +54,6 @@ const customerController = {
       })
       .catch((err) => {
         req.status(404).send({ msg: "Failed", err });
-      });
-  },
-  search: (req, res, next) => {
-    const name = req.query.name || "";
-    customerModel
-      .searchCustomer(name)
-      .then((result) => {
-        res.status(200).send({ result: result.rows });
-      })
-      .catch((err) => {
-        res.status(404).send({ msg: "Failed", err });
-      });
-  },
-  filter: (req, res, next) => {
-    const sortby = req.query.sortby || "customer_name";
-    const sort = req.query.sort || "asc";
-    const limit = req.query.limit || 10;
-    const page = req.query.page || 1;
-    customerModel
-      .filterCustomer(sortby, sort, limit, page)
-      .then((result) => {
-        res.status(200).send({ result: result.rows });
-      })
-      .catch((err) => {
-        res.status(404).send({ msg: "Failed", err });
       });
   },
 };

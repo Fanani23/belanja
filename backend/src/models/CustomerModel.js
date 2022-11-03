@@ -1,7 +1,24 @@
 const Pool = require("../config/Database");
+const { search } = require("../routes/ProductRoute");
 
 const getCustomer = () => {
-  return Pool.query(`SELECT * FROM customer`);
+  return Pool.query(
+    `SELECT customer.id, customer.customer_name, customer.email, customer.customer_status
+    FROM customer
+    WHERE customer.customer_name
+    ILIKE '%${search}%'
+    ORDER BY ${sortby} ${sort}
+    LIMIT ${limit}
+    OFFSET ${(page - 1) * limit}`
+  );
+};
+
+const getCustomerById = (id) => {
+  return Pool.query(
+    `SELECT customer.id, customer.customer_name, customer.email, customer.customer_status
+    FROM customer
+    WHERE customer.id = '${id}'`
+  );
 };
 
 const createCustomer = (data) => {
@@ -22,28 +39,10 @@ const deleteCustomer = (id) => {
   return Pool.query(`DELETE FROM customer WHERE id='${id}'`);
 };
 
-const searchCustomer = (name) => {
-  return Pool.query(
-    `SELECT * FROM customer
-    WHERE customer_name
-    ILIKE '%${name}%'`
-  );
-};
-
-const filterCustomer = (sortby, sort, limit, page) => {
-  return Pool.query(
-    `SELECT * FROM customer
-    ORDER BY ${sortby} ${sort}
-    LIMIT ${limit}
-    OFFSET ${(page - 1) * limit}`
-  );
-};
-
 module.exports = {
   getCustomer,
+  getCustomerById,
   createCustomer,
   updateCustomer,
   deleteCustomer,
-  searchCustomer,
-  filterCustomer,
 };

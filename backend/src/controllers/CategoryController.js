@@ -2,13 +2,28 @@ const categoryModel = require("../models/CategoryModel");
 
 const categoryController = {
   get: (req, res, next) => {
+    const search = req.query.search || "";
+    const sortby = req.query.sortby || "category_name";
+    const sort = req.query.sort || "asc";
+    const limit = req.query.limit || 10;
+    const page = req.query.page || 1;
     categoryModel
-      .getCategory()
+      .getCategory(search, sortby, sort, limit, page)
       .then((result) => {
         res.status(200).send({ result: result.rows });
       })
       .catch((err) => {
         res.status(404).send({ msg: "Can't get category data!", err });
+      });
+  },
+  getByID: (req, res, next) => {
+    categoryModel
+      .getCategoryById(req.params.id)
+      .then((result) => {
+        res.status(200).send({ result: result.rows });
+      })
+      .catch((err) => {
+        res.status(404).send({ msg: "Failed", err });
       });
   },
   create: (req, res, next) => {
@@ -36,31 +51,6 @@ const categoryController = {
       .deleteCategory(req.params.id)
       .then((result) => {
         res.status(200).send({ msg: "Category data deleted!" });
-      })
-      .catch((err) => {
-        res.status(404).send({ msg: "Failed", err });
-      });
-  },
-  search: (req, res, next) => {
-    const name = req.query.name || "";
-    categoryModel
-      .searchCategory(name)
-      .then((result) => {
-        res.status(200).send({ result: result.rows });
-      })
-      .catch((err) => {
-        res.status(404).send({ msg: "Failed", err });
-      });
-  },
-  filter: (req, res, next) => {
-    const sortby = req.query.sortby || "category_name";
-    const sort = req.query.sort || "asc";
-    const limit = req.query.limit || 10;
-    const page = req.query.page || 1;
-    categoryModel
-      .filterCategory(sortby, sort, limit, page)
-      .then((result) => {
-        res.status(200).send({ result: result.rows });
       })
       .catch((err) => {
         res.status(404).send({ msg: "Failed", err });

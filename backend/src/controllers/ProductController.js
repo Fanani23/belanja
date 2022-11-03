@@ -28,7 +28,6 @@ const productController = {
         res.status(404).send({ msg: "Failed", err });
       });
   },
-
   create: (req, res, next) => {
     const Port = process.env.PORT;
     const Host = process.env.HOST;

@@ -1,13 +1,25 @@
 const express = require("express");
 const router = express.Router();
 const { payMethodController } = require("../controllers/PayMethodController");
+const { protect, roleAdmin } = require("../middleware/Auth");
 const { checkPayMethod } = require("../middleware/CheckPayMethod");
 
-router.get("/", payMethodController.get);
-router.get("/search", payMethodController.search);
-router.get("/filter", payMethodController.filter);
-router.post("/", checkPayMethod, payMethodController.create);
-router.put("/:id", checkPayMethod, payMethodController.update);
-router.delete("/:id", payMethodController.delete);
+router.get("/", protect, payMethodController.get);
+router.get("/:id", protect, payMethodController.getByID);
+router.post(
+  "/",
+  protect,
+  roleAdmin,
+  checkPayMethod,
+  payMethodController.create
+);
+router.put(
+  "/:id",
+  protect,
+  roleAdmin,
+  checkPayMethod,
+  payMethodController.update
+);
+router.delete("/:id", protect, roleAdmin, payMethodController.delete);
 
 module.exports = router;

@@ -1,7 +1,23 @@
 const Pool = require("../config/Database");
 
-const getPayStatus = () => {
-  return Pool.query(`SELECT * FROM pay_status`);
+const getPayStatus = (search, sortby, sort, limit, page) => {
+  return Pool.query(
+    `SELECT pay_status.id, pay_status.payment_status
+    FROM pay_status
+    WHERE pay_status.payment_status
+    ILIKE '%${search}%'
+    ORDER BY ${sortby} ${sort}
+    LIMIT ${limit}
+    OFFSET ${(page - 1) * limit}`
+  );
+};
+
+const getPayStatusById = (id) => {
+  return Pool.query(
+    `SELECT pay_status.id, pay_status.payment_status
+    FROM pay_status
+    WHERE pay_status.id = '${id}'`
+  );
 };
 
 const createPayStatus = (data) => {
@@ -22,28 +38,10 @@ const deletePayStatus = (id) => {
   return Pool.query(`DELETE FROM pay_status WHERE id='${id}'`);
 };
 
-const searchPayStatus = (name) => {
-  return Pool.query(
-    `SELECT * FROM pay_status
-    WHERE payment_status
-    ILIKE '%${name}%'`
-  );
-};
-
-const filterPayStatus = (sortby, sort, limit, page) => {
-  return Pool.query(
-    `SELECT * FROM pay_status
-    ORDER BY ${sortby} ${sort}
-    LIMIT ${limit}
-    OFFSET ${(page - 1) * limit}`
-  );
-};
-
 module.exports = {
   getPayStatus,
+  getPayStatusById,
   createPayStatus,
   updatePayStatus,
   deletePayStatus,
-  searchPayStatus,
-  filterPayStatus,
 };
