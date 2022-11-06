@@ -1,8 +1,16 @@
 const { response } = require(`../middleware/Common`);
-const { create, findEmail, findRole } = require(`../models/UsersModel`);
+const {
+  create,
+  findEmail,
+  findRole,
+  verificationEmail,
+} = require(`../models/UsersModel`);
 const bcrypt = require("bcryptjs");
 const { v4: uuidv4 } = require("uuid");
 const { generateToken } = require(`../helper/Auth`);
+
+const Port = process.env.PORT;
+const Host = process.env.HOST;
 
 const usersController = {
   register: async (req, res, next) => {
@@ -26,6 +34,12 @@ const usersController = {
       return response(res, 404, false, "Role not found!", "Register failed!");
     }
 
+    let digitsOTP = "0123456789";
+    let OTP = "";
+    for (let i = 0; 1 < 6; i++) {
+      OTP += digitsOTP[Math.floor(Math.random() * 10)];
+    }
+
     let salt = bcrypt.genSaltSync(10);
     let password = bcrypt.hashSync(req.body.password, salt);
     let data = {
@@ -40,7 +54,12 @@ const usersController = {
       const result = await create(data);
       if (result) {
         console.log(result);
-        response(res, 200, true, true, "Register success");
+        let verifyURL = `http://${HOST}:${PORT}/${req.body.email}/${OTP}`;
+        let sendEmail = newEmail(data.email, OTP, verifyURL, data.fullname);
+        if (sendEmail == "Email not send!") {
+          return response(res, 404, false, null, "Register failed!");
+        }
+        response(res, 200, true, { newEmail: data.email }, "Register success");
       }
     } catch (err) {
       console.log(err);
@@ -72,6 +91,21 @@ const usersController = {
 
     response(res, 200, true, users, "login success");
   },
+};
+otp: async (req, res, next) => {
+  console.log("email", req.params.email);
+  console.log("password", req.params.otp);
+  let {
+    rows: [users],
+  } = await findEmail(req.params.email);
+  if (!users) {
+    return response(res, 404, false, null, " email not found");
+  }
+  if (users.otp == req.params.otp) {
+    const result = await verificationEmail(req.params.email);
+    return response(res, 200, true, result, " verification email success");
+  }
+  return response(res, 404, false, null, " wrong otp please check your email");
 };
 
 exports.usersController = usersController;

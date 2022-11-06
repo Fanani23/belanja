@@ -49,4 +49,19 @@ const findRole = (role) => {
   });
 };
 
-module.exports = { create, findEmail, findRole };
+const verificationEmail = (email) => {
+  return new Promise((resolve, reject) => {
+    Pool.query(
+      `UPDATE users SET verif=1 WHERE 'email'='${email}'`,
+      (err, result) => {
+        if (!err) {
+          resolve(result);
+        } else {
+          reject(err);
+        }
+      }
+    );
+  });
+};
+
+module.exports = { create, findEmail, findRole, verificationEmail };
