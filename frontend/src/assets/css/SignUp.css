@@ -44,17 +44,9 @@
   height: 120px;
   width: 120px;
 }
-.page-container {
-  margin: 0 auto;
-  max-width: 430px;
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
 .logo {
   margin-right: 7.08px;
-  margin-top: 30px;
+  margin-top: 20px;
   height: 50px;
 }
 .bg-logo {
@@ -67,12 +59,12 @@
   font-size: normal;
   font-weight: 700;
   font-size: 28px;
-  margin-top: 42px;
+  margin-top: 32px;
   text-align: center;
 }
 .text-pls {
   display: flex;
-  margin-top: 20px;
+  margin-top: 25px;
   color: #222222;
   font-family: "Metropolis", sans-serif;
   font-size: 18px;
@@ -92,11 +84,8 @@
   margin-top: 18px;
 }
 .text-forgot {
-  width: 100%;
-  display: flex;
-  justify-content: flex-end;
   color: #db3022;
-  margin-top: 5px;
+  margin-top: 25px;
 }
 .text-login {
   color: #db3022;
