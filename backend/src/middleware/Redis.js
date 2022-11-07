@@ -1,16 +1,9 @@
-const { createClient } = require("redis");
-
-const client = createClient(6379);
-
-client.on("error", (err) => console.log("Redis client error!", err));
-
-client.connect();
+const client = require("../config/Redis");
 const { response } = require("./Common");
 
 const hitCache = async (req, res, next) => {
   const id = req.params.id;
   const product = await client.get(`product/${id}`);
-  console.log(product);
   if (product) {
     return response(
       res,
