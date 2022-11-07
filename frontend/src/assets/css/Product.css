@@ -195,3 +195,19 @@ p {
 .checked {
   color: orange;
 }
+#colorpicker1 {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: transparent;
+  width: 36px;
+  height: 36px;
+  border: none;
+  cursor: pointer;
+}
+#colorpicker1::-webkit-color-swatch {
+  border-radius: 50%;
+}
+#colorpicker1::-moz-color-swatch {
+  border-radius: 50%;
+}
