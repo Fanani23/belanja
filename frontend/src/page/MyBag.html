@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta />
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/pretty-checkbox@3.0/dist/pretty-checkbox.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@xz/fonts@1/serve/metropolis.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link rel="stylesheet" href="/frontend/src/assets/css/Home.css" />
+    <title>Home</title>
+  </head>
+  <body>
+    <nav class="navbar bg-light fixed-top">
+      <div class="container-cst">
+        <div class="flex flex-row">
+          <div class="col-2 ml-2 pl-2 mr-4 pr-4 logo flex-row">
+            <img src="/frontend/src/assets/img/Logo.png" />
+            <a class="navbar-brand pl-2 text-logo" href="#">Belanja</a>
+          </div>
+          <div
+            class="col-5 form-group has-search form-search"
+            style="margin-right: 6%; padding-right: 6%"
+          >
+            <input type="text" class="form-control" placeholder="Search" />
+          </div>
+          <div class="col-3" style="margin-left: 0px">
+            <button
+              type="button"
+              class="form-control sort"
+              data-toogle="modal"
+              data-target="#modalSort"
+            >
+              <form class="pr-2"></form>
+              <img src="/frontend/src/assets/img/Sort.png" />
+            </button>
+            <div
+              class="modal fade"
+              id="modalSort"
+              tabindex="-1"
+              role="dialog"
+              aria-labelledby="modalSortLabel"
+              aria-hidden="true"
+            >
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="modalSortLabel">Modal title</h5>
+                    <button
+                      type="button"
+                      class="close"
+                      data-dismiss="modal"
+                      aria-label="Close"
+                    >
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">...</div>
+                  <div class="modal-footer">
+                    <button
+                      type="button"
+                      class="btn btn-secondary"
+                      data-dismiss="modal"
+                    >
+                      Close
+                    </button>
+                    <button type="button" class="btn btn-primary">
+                      Save changes
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="col-1 ml-2 pl-2"
+            style="margin-left: 20px; padding-left: 20px"
+          >
+            <button class="shop-cart">
+              <img src="/frontend/src/assets/img/Shop-cart.png" />
+            </button>
+          </div>
+          <div
+            class="col-1 ml-2 pl-2"
+            style="margin-left: 20px; padding-left: 20px"
+          >
+            <button class="shop-cart">
+              <img src="/frontend/src/assets/img/Bell.png" />
+            </button>
+          </div>
+          <div class="col-1" style="margin-left: 2%">
+            <button
+              style="margin-top: 20px; border: 0; background: transparent"
+            >
+              <img src="/frontend/src/assets/img/Mail.png" />
+            </button>
+          </div>
+          <div class="col-1" style="margin-left: 0">
+            <button
+              style="margin-top: 16px; border: 0; background: transparent"
+            >
+              <img src="/frontend/src/assets/img/Prof.png" />
+            </button>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <div class="container-body">
+      <div class="head-category">
+        <h2>My Bags</h2>
+      </div>
+      <div class="mt-4" style="width: 60%; float: left; margin-right: 25px">
+        <div class="card shadow-sm" style="width: 657px">
+          <div class="card-body">
+            <div class="pretty p-svg p-curve">
+              <input type="checkbox" />
+              <div class="pretty p-svg p-curve">
+                <input type="checkbox" />
+                <div class="state p-success">
+                  <svg class="svg svg-icon" viewBox="0 0 20 20">
+                    <path
+                      d="M7.629,14.566c0.125,0.125,0.291,0.188,0.456,0.188c0.164,0,0.329-0.062,0.456-0.188l8.219-8.221c0.252-0.252,0.252-0.659,0-0.911c-0.252-0.252-0.659-0.252-0.911,0l-7.764,7.763L4.152,9.267c-0.252-0.251-0.66-0.251-0.911,0c-0.252,0.252-0.252,0.66,0,0.911L7.629,14.566z"
+                      style="stroke: white; fill: white"
+                    ></path>
+                  </svg>
+                  <label class="ml-2 pl-2">Select all items</label>
+                  <a class="text-danger" style="margin-left: 190%">Delete</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card mt-2 shadow-sm" style="width: 657px; height: 120px">
+          <div
+            class="card-body row"
+            style="margin-top: 5px; margin-bottom: 5px"
+          >
+            <div class="pl-3 pt-4 align-items-center">
+              <div class="pretty p-svg p-curve">
+                <input type="checkbox" />
+                <div class="pretty p-svg p-curve">
+                  <input type="checkbox" />
+                  <div class="state p-success">
+                    <svg class="svg svg-icon" viewBox="0 0 20 20">
+                      <path
+                        d="M7.629,14.566c0.125,0.125,0.291,0.188,0.456,0.188c0.164,0,0.329-0.062,0.456-0.188l8.219-8.221c0.252-0.252,0.252-0.659,0-0.911c-0.252-0.252-0.659-0.252-0.911,0l-7.764,7.763L4.152,9.267c-0.252-0.251-0.66-0.251-0.911,0c-0.252,0.252-0.252,0.66,0,0.911L7.629,14.566z"
+                        style="stroke: white; fill: white"
+                      ></path>
+                    </svg>
+                    <label class="ml-0 pl-0"></label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="align-items-center">
+              <img
+                style="border-radius: 15%"
+                src="/frontend/src/assets/img/Mybag1.png"
+              />
+            </div>
+            <div class="pl-3 pt-3 font-metropolis">
+              <h6 style="margin-bottom: 0px">Men's formal suit - Black</h6>
+              <p style="font-size: 12px">Zalora</p>
+            </div>
+            <div class="pt-2" style="padding-left: 5rem">
+              <img src="/frontend/src/assets/img/BTN1.png" />
+            </div>
+            <div
+              class="pt-3"
+              style="color: rgb(26, 26, 26); padding-left: 2rem"
+            >
+              <p>$ 20.0</p>
+            </div>
+          </div>
+        </div>
+        <div class="card mt-1 shadow-sm" style="width: 657px; height: 120px">
+          <div
+            class="card-body row"
+            style="margin-top: 5px; margin-bottom: 5px"
+          >
+            <div class="pl-3 pt-4 align-items-center">
+              <div class="pretty p-svg p-curve">
+                <input type="checkbox" />
+                <div class="pretty p-svg p-curve">
+                  <input type="checkbox" />
+                  <div class="state p-success">
+                    <svg class="svg svg-icon" viewBox="0 0 20 20">
+                      <path
+                        d="M7.629,14.566c0.125,0.125,0.291,0.188,0.456,0.188c0.164,0,0.329-0.062,0.456-0.188l8.219-8.221c0.252-0.252,0.252-0.659,0-0.911c-0.252-0.252-0.659-0.252-0.911,0l-7.764,7.763L4.152,9.267c-0.252-0.251-0.66-0.251-0.911,0c-0.252,0.252-0.252,0.66,0,0.911L7.629,14.566z"
+                        style="stroke: white; fill: white"
+                      ></path>
+                    </svg>
+                    <label class="ml-0 pl-0"></label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="align-items-center">
+              <img
+                style="border-radius: 15%"
+                src="/frontend/src/assets/img/Mybag2.png"
+              />
+            </div>
+            <div class="pl-3 pt-3 font-metropolis">
+              <h6 style="margin-bottom: 0px">Men's formal suit - Black</h6>
+              <p style="font-size: 12px">Zalora</p>
+            </div>
+            <div class="pt-2" style="padding-left: 5rem">
+              <img src="/frontend/src/assets/img/BTN1.png" />
+            </div>
+            <div
+              class="pt-3"
+              style="color: rgb(26, 26, 26); padding-left: 2rem"
+            >
+              <p>$ 20.0</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="mt-4" style="width: 35%; float: right; margin-left: 25px">
+        <div class="card" style="height: 180px">
+          <div class="card-body pl-4" style="font-weight: 500">
+            Shopping summary
+          </div>
+          <div class="row justify-content-between">
+            <div class="row-4 pl-3" style="margin-left: 25px; color: #b4b4b4">
+              <p>Total price</p>
+            </div>
+            <div
+              class="row-1 mr-3"
+              style="margin-right: 10%; padding-right: 5%"
+            >
+              <p>$ 40.0</p>
+            </div>
+          </div>
+          <div class="btn-buy">
+            <button
+              class="btn btn-danger btn-rounded justify-content-center align-items-center"
+              style="
+                margin-left: 5%;
+                margin-right: 10%;
+                margin-top: 5%;
+                width: 322px;
+                border-radius: 25px;
+              "
+              type="button"
+            >
+              Buy
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"
+    ></script>
+    <script src="/frontend/src/assets/js/Home.js"></script>
+  </body>
+</html>
