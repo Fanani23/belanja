@@ -1,0 +1,237 @@
+.container-home {
+  width: 100%;
+  background-color: #e5e5e5;
+}
+.container-navbar {
+  width: 100%;
+  height: 100px;
+}
+.navbar-box {
+  position: absolute;
+  width: 100%;
+  height: 100px;
+  left: 0px;
+  top: 0px;
+  background-color: #ffffff;
+  box-shadow: 0px 6px 40px rgba(173, 173, 173, 0.25);
+}
+.navbar-body {
+  display: flex;
+  flex-direction: row;
+}
+.logo-home {
+  position: absolute;
+  width: 119px;
+  height: 44px;
+  left: 75px;
+  right: 1171px;
+  top: 28px;
+  bottom: 28px;
+}
+.search-box {
+  position: absolute;
+  width: 507px;
+  height: 40px;
+  left: 329px;
+  right: 604px;
+  top: 30px;
+  bottom: 30px;
+}
+.search-input {
+  width: 100%;
+  padding: 9px 40px 9px 20px;
+  border: 1px solid #8e8e93;
+  border-radius: 23px;
+}
+.search-icon {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  color: #8e8e93;
+  right: 18px;
+  top: 9px;
+  left: 469px;
+  bottom: 11px;
+}
+.filter-box {
+  position: absolute;
+  background-color: transparent;
+  border: 1px solid #8e8e93;
+  border-radius: 12px;
+  color: #8e8e93;
+  width: 40px;
+  height: 40px;
+  left: 847px;
+  right: 553px;
+  top: 30px;
+  bottom: 30px;
+}
+.shopping-box {
+  position: absolute;
+  background-color: transparent;
+  border: transparent;
+  color: #8e8e93;
+  width: 24px;
+  height: 24px;
+  left: 1006px;
+  top: 36px;
+  right: 410px;
+  bottom: 36px;
+}
+.login-box {
+  position: absolute;
+  left: 1070px;
+  top: 32px;
+  right: 270px;
+  bottom: 32px;
+}
+.btn-login {
+  width: 100px;
+  height: 36px;
+  border: 1px solid #8e8e93;
+  border-radius: 25px;
+  color: #8e8e93;
+}
+.signup-box {
+  position: absolute;
+  left: 1190px;
+  top: 32px;
+  right: 150px;
+  bottom: 32px;
+}
+.btn-signup {
+  width: 100px;
+  height: 36px;
+  border: 1px solid #8e8e93;
+  border-radius: 25px;
+  color: #8e8e93;
+}
+.container-body {
+  position: absolute;
+  width: 89%;
+  left: 75px;
+  right: 75px;
+  top: 147px;
+}
+.carousel-top {
+  position: relative;
+  background-color: transparent;
+}
+.carousel-items {
+  padding: 0px 0px 0px 0px;
+}
+.carousel-img {
+  border: transparent;
+  border-radius: 8px;
+}
+.head-category {
+  font-family: "Metropolis";
+  top: 81px;
+  left: 75px;
+}
+.cat-category {
+  font-family: "Metropolis";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 34px;
+  width: 156px;
+  height: 34px;
+  line-height: 34px;
+  color: #222222;
+}
+.cat-info {
+  font-family: "Metropolis";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  width: 199px;
+  height: 12px;
+  line-height: 12px;
+  color: #9b9b9b;
+}
+.carousel-bot {
+  position: relative;
+  background-color: transparent;
+}
+.head-new {
+  font-family: "Metropolis";
+  top: 81px;
+  left: 75px;
+}
+.cat-new {
+  font-family: "Metropolis";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 34px;
+  text-align: start;
+  width: 156px;
+  height: 34px;
+  line-height: 34px;
+  color: #222222;
+}
+.new-info {
+  font-family: "Metropolis";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  text-align: start;
+  width: 199px;
+  height: 12px;
+  line-height: 12px;
+  color: #9b9b9b;
+}
+.new-pop {
+  font-family: "Metropolis";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  text-align: start;
+  width: 221px;
+  height: 12px;
+  line-height: 12px;
+  color: #9b9b9b;
+}
+.card-box {
+  display: flex;
+  flex-direction: column;
+}
+.card-items {
+  display: flex;
+  flex-direction: row;
+  gap: 40px;
+}
+.card-product {
+  width: 208px;
+  height: 278px;
+}
+.card-body {
+  font-family: "Metropolis";
+  text-align: start;
+}
+.card-title {
+  width: 184px;
+  height: 48px;
+  font-weight: 500;
+  font-size: 16px;
+  font-style: normal;
+  line-height: 24px;
+  color: #000000;
+}
+.card-price {
+  width: 52px;
+  height: 16px;
+  font-weight: 500;
+  font-size: 16px;
+  font-style: normal;
+  line-height: 16px;
+  color: #db3022;
+}
+.card-store {
+  width: 71px;
+  height: 12px;
+  font-weight: 500;
+  font-size: 12px;
+  font-style: normal;
+  line-height: 12px;
+  color: #9b9b9b;
+}

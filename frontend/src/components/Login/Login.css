@@ -1,0 +1,139 @@
+.container-home {
+  width: 100%;
+  background-color: transparent;
+}
+.logo {
+  position: absolute;
+  width: 119px;
+  height: 44px;
+  left: 632px;
+  right: 653px;
+  top: 100px;
+  bottom: 750px;
+}
+.log-text {
+  position: absolute;
+  width: 271px;
+  height: 18px;
+  left: 554px;
+  top: 190px;
+  font-family: "Metropolis";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 19px;
+  color: #222222;
+}
+.btn-box {
+  position: absolute;
+  width: 244px;
+  top: 258px;
+  left: 567px;
+  bottom: 594px;
+  right: 720px;
+}
+.btn-customer {
+  width: 123px;
+  height: 48px;
+  border: 1px solid #8e8e93;
+  box-shadow: 0px 1px 8px rgba(0, 0, 0, 0.05);
+  border-radius: 4px 0px 0px 4px;
+  color: #8e8e93;
+}
+.text-customer {
+  font-family: "Metropolis";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+}
+.btn-seller {
+  width: 123px;
+  height: 48px;
+  border: 1px solid #8e8e93;
+  color: #8e8e93;
+  box-shadow: 0px 1px 8px rgba(0, 0, 0, 0.05);
+  border-radius: 0px 4px 4px 0px;
+}
+.text-seller {
+  font-family: "Metropolis";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+}
+.input-box {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  top: 346px;
+  left: 484px;
+  bottom: 506px;
+  right: 521px;
+}
+.input-val {
+  width: 400px;
+  height: 48px;
+  filter: drop-shadow(0px 1px 8px rgba(0, 0, 0, 0.05));
+  border-radius: 4px;
+}
+::placeholder {
+  font-family: "Metropolis";
+  font-weight: 500;
+  font-style: normal;
+  font-size: 14px;
+  line-height: 20px;
+  padding-left: 12px;
+}
+.txt-forgot {
+  position: absolute;
+  width: 123px;
+  height: 14px;
+  top: 464px;
+  left: 766px;
+  bottom: 402px;
+  right: 520px;
+}
+.txt-forgot a {
+  font-family: "Metropolis";
+  font-weight: 400;
+  font-size: 14px;
+  font-style: normal;
+  line-height: 14px;
+  color: #db3022;
+}
+.btn-prim-login {
+  position: absolute;
+  width: 401px;
+  height: 48px;
+  top: 504px;
+  left: 484px;
+  bottom: 328px;
+  right: 520px;
+  background-color: #db3022;
+  border-radius: 25px;
+}
+.txt-bot-login {
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  font-family: "Metropolis";
+  width: 285px;
+  height: 14px;
+  top: 600px;
+  left: 562px;
+  bottom: 274px;
+  right: 578px;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 14px;
+  font-style: normal;
+  gap: 4px;
+}
+.txt-bot-login p {
+  color: #222222;
+}
+.txt-bot-login a {
+  color: #db3022;
+}
