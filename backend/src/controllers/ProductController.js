@@ -1,4 +1,7 @@
 const productModel = require("../models/ProductModel");
+const { response } = require("../middleware/Common");
+const client = require("../config/Redis");
+const cloudinary = require("../config/Photo");
 
 const productController = {
   get: (req, res, next) => {
@@ -22,45 +25,65 @@ const productController = {
     productModel
       .getProductById(req.params.id)
       .then((result) => {
-        res.status(200).send({ result: result.rows });
+        client.setEx(
+          `product/${req.params.id}`,
+          60 * 60,
+          JSON.stringify(result.rows)
+        );
+        response(res, 200, true, result.rows, "get data success");
       })
       .catch((err) => {
-        res.status(404).send({ msg: "Failed", err });
+        response(res, 404, false, err, "get data fail");
       });
   },
-  create: (req, res, next) => {
-    const Port = process.env.PORT;
-    const Host = process.env.HOST;
-    const photo = req.file.filename;
-    const url = `http://${Host}:${Port}/image/${photo}`;
-    req.body.photo = url;
-    req.body.stock = parseInt(req.body.stock);
-    req.body.price = parseInt(req.body.price);
-    productModel
-      .createProduct(req.body)
-      .then((result) => {
-        res.status(200).send({ msg: "New product created!" });
-      })
-      .catch((err) => {
-        res.status(404).send({ msg: "Failed", err: err.message });
+  create: async (req, res, next) => {
+    // req.body.stock = parseInt(req.body.stock);
+    // req.body.price = parseInt(req.body.price);
+    // req.body.category_id = parseInt(req.body.category_id);
+    // const image = cloudinary.uploader.upload(req.file.path, {
+    //   folder: "belanja",
+    // });
+    // req.body.photo = image.url;
+    // // req.body.stock = parseInt(req.body.stock);
+    // // req.body.price = parseInt(req.body.price);
+    // console.log(image);
+    // productModel
+    //   .createProduct(req.body)
+    //   .then((result) => {
+    //     res.status(200).send({ msg: "New product created!" });
+    //   })
+    //   .catch((err) => {
+    //     res.status(404).send({ msg: "Failed", err: err.message });
+    //   });
+    try {
+      req.body.stock = parseInt(req.body.stock);
+      req.body.price = parseInt(req.body.price);
+      req.body.category_id = parseInt(req.body.category_id);
+      const image = await cloudinary.uploader.upload(req.file.path, {
+        folder: "belanja",
       });
+      req.body.photo = image.url;
+      await productModel.createProduct(req.body);
+      return response(res, 200, true, req.body, "Create new data");
+    } catch (err) {
+      return response(res, 404, false, err, "Failed");
+    }
   },
-  update: (req, res, next) => {
-    const Port = process.env.PORT;
-    const Host = process.env.HOST;
-    const photo = req.file.filename;
-    const url = `http://${Host}:${Port}/image/${photo}`;
-    req.body.photo = url;
-    req.body.stock = parseInt(req.body.stock);
-    req.body.price = parseInt(req.body.price);
-    productModel
-      .updateProduct(req.params.id, req.body)
-      .then((result) => {
-        res.status(200).send({ msg: "Product data updated!" });
-      })
-      .catch((err) => {
-        res.status(404).send({ msg: "Failed", err: err.message });
+  update: async (req, res, next) => {
+    //
+    try {
+      req.body.stock = parseInt(req.body.stock);
+      req.body.price = parseInt(req.body.price);
+      req.body.category_id = parseInt(req.body.category_id);
+      const image = await cloudinary.uploader.upload(req.file.path, {
+        folder: "belanja",
       });
+      req.body.photo = image.url;
+      await productModel.updateProduct(req.params.id, req.body);
+      return response(res, 200, true, req.body, "Update new data");
+    } catch (err) {
+      return response(res, 404, false, err, "Failed");
+    }
   },
   delete: (req, res, next) => {
     productModel
