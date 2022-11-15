@@ -13,10 +13,11 @@ import { ReactComponent as NameTagIcon } from "../../../images/NameTag.svg";
 import { ReactComponent as SideHomeIcon } from "../../../images/SideHome.svg";
 import { ReactComponent as SidePackageIcon } from "../../../images/SidePackage.svg";
 import { ReactComponent as SideShoppingIcon } from "../../../images/SideShopping.svg";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Dropdown from "react-bootstrap/Dropdown";
 import TableScrollbar from "react-table-scrollbar";
 import axios from "axios";
+import EditProduct from "./EditProduct";
 import "@fontsource/metropolis";
 import "./MyProduct.css";
 
@@ -37,17 +38,19 @@ const MyProduct = () => {
   const [category_id, setCategoryId] = useState();
   const [photo, setPhoto] = useState();
   // Edit data
-  const { id } = useParams();
+  const { id } = useState();
   // Navigation
   const navigate = useNavigate();
-  // Table
-  const [inputImage, setInputImage] = useState();
-  const getPhoto = (e) => {
-    setPhoto([...e.target.files]);
-  };
+  // Filter
+  const [search, setSearch] = useState("");
+  const [sortby, setSortby] = useState("price");
+  const [sort, setSort] = useState("asc");
+  const [page, setPage] = useState("");
 
   const getProduct = async () => {
-    const response = await axios.get(`http://localhost:3010/product`);
+    const response = await axios.get(
+      `http://localhost:3010/product?search=${search}&sortby=${sortby}&sort=${sort}`
+    );
     setProduct(response.data.result);
     console.log(response.data.result);
   };
@@ -101,6 +104,9 @@ const MyProduct = () => {
     }
   };
 
+  useEffect(() => {
+    getProduct();
+  }, [search, sortby, sort]);
   useEffect(() => {
     getProduct();
   }, []);
@@ -285,9 +291,12 @@ const MyProduct = () => {
                     <div className="position-relative">
                       <input
                         className="rs-box"
-                        type="text"
+                        type="search"
                         placeholder="Search"
                         id="right-search"
+                        onChange={(e) =>
+                          setSearch(e.target.value.toLowerCase())
+                        }
                       />
                       <label className="rs-icon" htmlFor="right-search">
                         <SearchIcon />
@@ -380,13 +389,58 @@ const MyProduct = () => {
                     <div className="ap-box">
                       <div className="container d-flex flex-row top-ap">
                         <p>Filter : </p>
-                        <button className="btn-filter sm-1">Name</button>
-                        <button className="btn-filter sm-1">Stock</button>
-                        <button className="btn-filter sm-1">Price</button>
-                        <button className="btn-filter sm-1">Asc</button>
-                        <button className="btn-filter sm-1">Desc</button>
+                        <button
+                          className={`btn btn-filter ${
+                            sortby == "name" ? "btn-primary" : "btn-secondary"
+                          } sm-1`}
+                          type="button"
+                          name="filter-name"
+                          onClick={() => setSortby("name")}
+                        >
+                          Name
+                        </button>
+                        <button
+                          className={`btn btn-filter ${
+                            sortby == "stock" ? "btn-primary" : "btn-secondary"
+                          } sm-1`}
+                          type="button"
+                          name="filter-stock"
+                          onClick={() => setSortby("stock")}
+                        >
+                          Stock
+                        </button>
+                        <button
+                          className={`btn btn-filter ${
+                            sortby == "price" ? "btn-primary" : "btn-secondary"
+                          } sm-1`}
+                          type="button"
+                          name="filter-price"
+                          onClick={() => setSortby("price")}
+                        >
+                          Price
+                        </button>
+                        <button
+                          className={`btn btn-filter ${
+                            sort == "asc" ? "btn-primary" : "btn-secondary"
+                          } sm-1`}
+                          type="button"
+                          name="filter-asc"
+                          onClick={() => setSort("asc")}
+                        >
+                          Asc
+                        </button>
+                        <button
+                          className={`btn btn-filter ${
+                            sort == "desc" ? "btn-primary" : "btn-secondary"
+                          } sm-1`}
+                          type="button"
+                          name="filter-desc"
+                          onClick={() => setSort("desc")}
+                        >
+                          Desc
+                        </button>
                       </div>
-                      <TableScrollbar rows={6}>
+                      <TableScrollbar rows={5}>
                         <table className="table container table-box">
                           <thead className="table-head">
                             <tr>
@@ -415,15 +469,19 @@ const MyProduct = () => {
                                   />
                                 </td>
                                 <td className="m-2">
-                                  <button
-                                    type="button"
-                                    className="btn btn-warning"
-                                    onClick={() =>
-                                      openEditProductModal(item.id)
-                                    }
-                                  >
-                                    Edit
-                                  </button>
+                                  <Link to={`/edit/${item.id}`}>Edit</Link>
+                                  {/* <Link to={item.id}>
+                                    <button
+                                      type="button"
+                                      className="btn btn-warning"
+                                      onClick={() =>
+                                        // openEditProductModal(item.id)
+                                      }
+                                    >
+                                      Edit
+                                    </button>
+                                  </Link> */}
+
                                   <Modal
                                     isOpen={openEditProduct}
                                     onRequestClose={closeEditProductModal}
@@ -433,6 +491,7 @@ const MyProduct = () => {
                                       <h2 className="items-center">
                                         Edit Product
                                       </h2>
+
                                       <button onClick={closeEditProductModal}>
                                         Close
                                       </button>

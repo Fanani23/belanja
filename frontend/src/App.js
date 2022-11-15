@@ -13,6 +13,7 @@ import Bag from "./components/Bag";
 import HomeLogin from "./components/HomeLogin";
 import Profile from "./components/Profile";
 import MyProduct from "./components/Profile/MyProduct";
+import EditProduct from "./components/Profile/MyProduct/EditProduct";
 
 function App() {
   const [title, setTitle] = useState("E-Commerce");
@@ -52,6 +53,9 @@ function App() {
           </Route>
           <Route path="/my-product">
             <Route index element={<MyProduct />} />
+          </Route>
+          <Route path="/edit/:id">
+            <Route index element={<EditProduct />} />
           </Route>
         </Routes>
       </div>
