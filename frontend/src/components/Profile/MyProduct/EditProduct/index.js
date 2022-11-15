@@ -37,12 +37,12 @@ const EditProduct = () => {
 
   const getProductById = async () => {
     const response = await axios.get(`http://localhost:3010/product/${id}`);
-    setProductName(response.data.product_name);
-    setStock(response.data.stock);
-    setPrice(response.data.price);
-    setCategoryId(response.data.category_id);
-    setPhoto(response.data.photo);
-    console.log(response);
+    setProductName(response.data.data[0].product_name);
+    setStock(response.data.data[0].stock);
+    setPrice(response.data.data[0].price);
+    setCategoryId(response.data.data[0].category_id);
+    setPhoto(response.data.data[0].photo);
+    console.log(response.data.data[0].product_name);
   };
 
   return (
@@ -57,7 +57,6 @@ const EditProduct = () => {
                 className="input"
                 value={product_name}
                 onChange={(e) => setProductName(e.target.value)}
-                placeholder="Name"
               />
             </div>
           </div>
