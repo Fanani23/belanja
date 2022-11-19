@@ -1,10 +1,28 @@
 import { ReactComponent as LogoLogin } from "../../images/Logo.svg";
 import { useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import loginUser from "../Redux/Actions/Login";
+import { useDispatch } from "react-redux";
 import "@fontsource/metropolis";
 import "./Login.css";
 
 const Login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
+
   const navigate = useNavigate();
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+    console.log(email);
+    console.log(password);
+    let data = {
+      email,
+      password,
+    };
+    dispatch(loginUser(data, navigate));
+  };
 
   return (
     <div className="container-home">
@@ -42,21 +60,32 @@ const Login = () => {
         </label>
       </div>
       <div className="input-box">
-        <div className="input-val">
-          <input type="text" className="form-control" placeholder="Email" />
-        </div>
-        <div className="input-val">
-          <input type="text" className="form-control" placeholder="Password" />
-        </div>
+        <form onSubmit={handleLogin} id="form-login" className="input-val">
+          <input
+            type="email"
+            className="form-control"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <input
+            type="password"
+            className="form-control mt-3"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </form>
       </div>
       <div className="txt-forgot">
         <a href="/forgot-password">Forgot password?</a>
       </div>
       <div className="">
         <button
-          type="button"
+          onClick={handleLogin}
+          type="submit"
+          form="form-login"
           className="btn btn-danger btn-prim-login"
-          onClick={() => navigate("/home-login")}
         >
           Login
         </button>

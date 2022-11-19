@@ -61,6 +61,10 @@ const Bag = () => {
           </ul>
         </nav>
       </div>
+      <div className="container-bag">
+        <div className="container-bag-left"></div>
+        <div className="container-bag-right"></div>
+      </div>
     </div>
   );
 };

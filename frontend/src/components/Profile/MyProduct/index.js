@@ -17,6 +17,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import Dropdown from "react-bootstrap/Dropdown";
 import TableScrollbar from "react-table-scrollbar";
 import axios from "axios";
+import Alert from "../../Alert";
 import EditProduct from "./EditProduct";
 import "@fontsource/metropolis";
 import "./MyProduct.css";
@@ -46,13 +47,45 @@ const MyProduct = () => {
   const [sortby, setSortby] = useState("price");
   const [sort, setSort] = useState("asc");
   const [page, setPage] = useState("");
+  // Message
+  const [message, setMessage] = useState({
+    title: "",
+    text: "",
+    type: "success",
+  });
+  const [messageShow, setMessageShow] = useState(true);
 
   const getProduct = async () => {
-    const response = await axios.get(
-      `http://localhost:3010/product?search=${search}&sortby=${sortby}&sort=${sort}`
-    );
-    setProduct(response.data.result);
-    console.log(response.data.result);
+    let token = localStorage.getItem("token");
+    console.log("My token", token);
+    try {
+      const response = await axios.get(
+        `http://localhost:3010/product?search=${search}&sortby=${sortby}&sort=${sort}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      setProduct(response.data.result);
+      console.log(response.data.result);
+    } catch (err) {
+      if (err.response.msg == "Server need token!") {
+        setMessageShow(true);
+        setMessage({
+          title: "Belum login",
+          text: "Harus login",
+          type: "Danger",
+        });
+      } else if (err.response.msg !== "Server need token!") {
+        setMessageShow(true);
+        setMessage({
+          title: "Error",
+          text: "Get data failed",
+          type: "Danger",
+        });
+      }
+    }
   };
 
   const saveProduct = async (e) => {
@@ -391,7 +424,7 @@ const MyProduct = () => {
                         <p>Filter : </p>
                         <button
                           className={`btn btn-filter ${
-                            sortby == "name" ? "btn-primary" : "btn-secondary"
+                            sortby === "name" ? "btn-primary" : "btn-secondary"
                           } sm-1`}
                           type="button"
                           name="filter-name"
@@ -401,7 +434,7 @@ const MyProduct = () => {
                         </button>
                         <button
                           className={`btn btn-filter ${
-                            sortby == "stock" ? "btn-primary" : "btn-secondary"
+                            sortby === "stock" ? "btn-primary" : "btn-secondary"
                           } sm-1`}
                           type="button"
                           name="filter-stock"
@@ -411,7 +444,7 @@ const MyProduct = () => {
                         </button>
                         <button
                           className={`btn btn-filter ${
-                            sortby == "price" ? "btn-primary" : "btn-secondary"
+                            sortby === "price" ? "btn-primary" : "btn-secondary"
                           } sm-1`}
                           type="button"
                           name="filter-price"
@@ -421,7 +454,7 @@ const MyProduct = () => {
                         </button>
                         <button
                           className={`btn btn-filter ${
-                            sort == "asc" ? "btn-primary" : "btn-secondary"
+                            sort === "asc" ? "btn-primary" : "btn-secondary"
                           } sm-1`}
                           type="button"
                           name="filter-asc"
@@ -431,7 +464,7 @@ const MyProduct = () => {
                         </button>
                         <button
                           className={`btn btn-filter ${
-                            sort == "desc" ? "btn-primary" : "btn-secondary"
+                            sort === "desc" ? "btn-primary" : "btn-secondary"
                           } sm-1`}
                           type="button"
                           name="filter-desc"
@@ -470,109 +503,6 @@ const MyProduct = () => {
                                 </td>
                                 <td className="m-2">
                                   <Link to={`/edit/${item.id}`}>Edit</Link>
-                                  {/* <Link to={item.id}>
-                                    <button
-                                      type="button"
-                                      className="btn btn-warning"
-                                      onClick={() =>
-                                        // openEditProductModal(item.id)
-                                      }
-                                    >
-                                      Edit
-                                    </button>
-                                  </Link> */}
-
-                                  <Modal
-                                    isOpen={openEditProduct}
-                                    onRequestClose={closeEditProductModal}
-                                    style={modalStyles}
-                                  >
-                                    <div className="top-modal">
-                                      <h2 className="items-center">
-                                        Edit Product
-                                      </h2>
-
-                                      <button onClick={closeEditProductModal}>
-                                        Close
-                                      </button>
-                                    </div>
-                                    <form
-                                      onSubmit={editProduct}
-                                      className="mt-4 w-100 form-modal"
-                                      autoComplete="off"
-                                      noValidate
-                                    >
-                                      <div className="left-modal">
-                                        <label htmlFor="product_name">
-                                          Product Name
-                                        </label>
-                                        <label htmlFor="stock">Stock</label>
-                                        <label htmlFor="price">Price</label>
-                                        <label htmlFor="category_id">
-                                          Category Id
-                                        </label>
-                                        <label htmlFor="photo">Photo</label>
-                                      </div>
-                                      <div className="right-modal">
-                                        <input
-                                          type="text"
-                                          name="product_name"
-                                          id="product_name"
-                                          placeholder="Product name"
-                                          className="form-control md-box"
-                                          value={product_name}
-                                          onChange={(e) =>
-                                            setProductName(e.target.value)
-                                          }
-                                        />
-                                        <input
-                                          type="number"
-                                          name="stock"
-                                          id="stock"
-                                          placeholder="Stock"
-                                          className="form-control md-box"
-                                          value={stock}
-                                          onChange={(e) =>
-                                            setStock(e.target.value)
-                                          }
-                                        />
-                                        <input
-                                          type="number"
-                                          name="price"
-                                          id="price"
-                                          placeholder="Price"
-                                          className="form-control md-box"
-                                          value={price}
-                                          onChange={(e) =>
-                                            setPrice(e.target.value)
-                                          }
-                                        />
-                                        <input
-                                          type="number"
-                                          name="category_id"
-                                          id="category_id"
-                                          placeholder="Category Id"
-                                          className="form-control md-box"
-                                          value={category_id}
-                                          onChange={(e) => {
-                                            setCategoryId(e.target.value);
-                                          }}
-                                        />
-                                        <input
-                                          type="file"
-                                          name="photo"
-                                          id="photo"
-                                          className=""
-                                          onChange={(e) =>
-                                            setPhoto(e.target.files[0])
-                                          }
-                                        />
-                                        <div>
-                                          <button type="submit">save</button>
-                                        </div>
-                                      </div>
-                                    </form>
-                                  </Modal>
                                 </td>
                                 <td className="m-2">
                                   <button

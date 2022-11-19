@@ -235,3 +235,23 @@
   line-height: 12px;
   color: #9b9b9b;
 }
+.md-size-box {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+}
+.md-size-list {
+  width: 15px;
+  height: 15px;
+  border-radius: 8px;
+}
+.md-category-list {
+  width: 50px;
+  height: 15px;
+  border-radius: 8px;
+}
+.md-submit-list {
+  width: 50px;
+  height: 15px;
+  border-radius: 48px;
+}

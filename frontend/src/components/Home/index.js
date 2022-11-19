@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Modal from "react-modal";
 import Logo from "../../images/Logo.svg";
 import { ReactComponent as SearchIcon } from "../../images/Search.svg";
 import { ReactComponent as FilterIcon } from "../../images/Filter.svg";
@@ -6,11 +7,18 @@ import { ReactComponent as ShoppingIcon } from "../../images/Shopping.svg";
 import { useNavigate } from "react-router-dom";
 import Carousel from "react-multi-carousel";
 import Card from "react-bootstrap/Card";
+import Dropdown from "react-bootstrap/Dropdown";
+import ColorPicker from "react-circle-color-picker";
 import "@fontsource/metropolis";
 import "./Home.css";
 import "react-multi-carousel/lib/styles.css";
 
 const Home = () => {
+  // Modal
+  const [openFilter, setOpenFilter] = useState(false);
+  const closeFilterModal = () => setOpenFilter(false);
+  const openFilterModal = () => setOpenFilter(true);
+
   const responsiveTopCarousel = {
     dekstop: {
       breakpoint: { max: 2566, min: 1366 },
@@ -41,6 +49,19 @@ const Home = () => {
     },
   };
 
+  const modalStyle = {
+    content: {
+      width: "30%",
+      height: "80%",
+      top: "28%",
+      left: "40%",
+      right: "auto",
+      bottom: "auto",
+      marginRight: "-20%",
+      transform: "translate(-20%, -20%)",
+    },
+  };
+
   const navigate = useNavigate();
 
   return (
@@ -65,12 +86,201 @@ const Home = () => {
               </div>
             </li>
             <li className="nav-item ">
-              <button type="button" className="filter-box">
+              <button
+                type="button"
+                className="filter-box"
+                onClick={openFilterModal}
+              >
                 <FilterIcon />
               </button>
+              <Modal
+                isOpen={openFilter}
+                onRequestClose={closeFilterModal}
+                style={modalStyle}
+              >
+                <div className="top-modal">
+                  <h2 className="items-center">Filter</h2>
+                  <button onClick={closeFilterModal}>Close</button>
+                </div>
+                <div>
+                  <p>Colors</p>
+                  <div>
+                    <ColorPicker
+                      colors={[
+                        { hex: "#020202" },
+                        { hex: "#FFFFFF" },
+                        { hex: "#B82222" },
+                        { hex: "#BEA9A9" },
+                        { hex: "#E2BB8D" },
+                        { hex: "#151867" },
+                      ]}
+                    />
+                  </div>
+                </div>
+                <div className="pt-2">
+                  <p>Sizes</p>
+                  <div className="md-size-box">
+                    <div>
+                      <input
+                        type="radio"
+                        name="xs"
+                        id="xs"
+                        className="btn-check"
+                      />
+                      <label className="btn btn-outline-danger" for="xs">
+                        <p className="md-size-list mb-2">XS</p>
+                      </label>
+                    </div>
+                    <div>
+                      <input
+                        type="radio"
+                        name="s"
+                        id="s"
+                        className="btn-check"
+                      />
+                      <label className="btn btn-outline-danger" for="s">
+                        <p className="md-size-list mb-2">S</p>
+                      </label>
+                    </div>
+                    <div>
+                      <input
+                        type="radio"
+                        name="m"
+                        id="m"
+                        className="btn-check"
+                      />
+                      <label className="btn btn-outline-danger" for="m">
+                        <p className="md-size-list mb-2">M</p>
+                      </label>
+                    </div>
+                    <div>
+                      <input
+                        type="radio"
+                        name="l"
+                        id="l"
+                        className="btn-check"
+                      />
+                      <label className="btn btn-outline-danger" for="l">
+                        <p className="md-size-list mb-2">L</p>
+                      </label>
+                    </div>
+                    <div>
+                      <input
+                        type="radio"
+                        name="xl"
+                        id="xl"
+                        className="btn-check"
+                      />
+                      <label className="btn btn-outline-danger" for="xl">
+                        <p className="md-size-list mb-2">XL</p>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                <div className="pt-2">
+                  <p>Category</p>
+                  <div className="md-size-box">
+                    <div>
+                      <input
+                        type="radio"
+                        name="all"
+                        id="all"
+                        className="btn-check"
+                      />
+                      <label className="btn btn-outline-danger" for="all">
+                        <p className="md-category-list mb-2">All</p>
+                      </label>
+                    </div>
+                    <div>
+                      <input
+                        type="radio"
+                        name="women"
+                        id="women"
+                        className="btn-check"
+                      />
+                      <label className="btn btn-outline-danger" for="women">
+                        <p className="md-category-list mb-2">Women</p>
+                      </label>
+                    </div>
+                    <div>
+                      <input
+                        type="radio"
+                        name="men"
+                        id="men"
+                        className="btn-check"
+                      />
+                      <label className="btn btn-outline-danger" for="men">
+                        <p className="md-category-list mb-2">Men</p>
+                      </label>
+                    </div>
+                  </div>
+                  <div className="mt-2">
+                    <div className="md-size-box">
+                      <div>
+                        <input
+                          type="radio"
+                          name="boys"
+                          id="boys"
+                          className="btn-check"
+                        />
+                        <label className="btn btn-outline-danger" for="boys">
+                          <p className="md-category-list mb-2">Boys</p>
+                        </label>
+                      </div>
+                      <div>
+                        <input
+                          type="radio"
+                          name="girls"
+                          id="girls"
+                          className="btn-check"
+                        />
+                        <label className="btn btn-outline-danger" for="girls">
+                          <p className="md-category-list mb-2">Girls</p>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="pt-2">
+                    <select name="brand" id="brand" className="form-select">
+                      <option selected>Brand</option>
+                      <option value="zalora">Zalora</option>
+                    </select>
+                  </div>
+                  <div className="pt-2">
+                    <div className="md-size-box">
+                      <div>
+                        <input
+                          type="radio"
+                          name="discard"
+                          id="discard"
+                          className="btn-check"
+                        />
+                        <label className="btn btn-outline-danger" for="discard">
+                          <p className="md-submit-list mb-2">Discard</p>
+                        </label>
+                      </div>
+                      <div>
+                        <input
+                          type="radio"
+                          name="apply"
+                          id="apply"
+                          className="btn-check"
+                        />
+                        <label className="btn btn-outline-danger" for="apply">
+                          <p className="md-submit-list mb-2">Apply</p>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </Modal>
             </li>
             <li className="nav-item">
-              <button type="button" className="shopping-box">
+              <button
+                type="button"
+                className="shopping-box"
+                onClick={() => navigate("/bag")}
+              >
                 <ShoppingIcon />
               </button>
             </li>

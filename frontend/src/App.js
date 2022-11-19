@@ -14,6 +14,8 @@ import HomeLogin from "./components/HomeLogin";
 import Profile from "./components/Profile";
 import MyProduct from "./components/Profile/MyProduct";
 import EditProduct from "./components/Profile/MyProduct/EditProduct";
+import ProductDetail from "./components/ProductDetail.js";
+import AuthChecker from "./components/AuthChecker";
 
 function App() {
   const [title, setTitle] = useState("E-Commerce");
@@ -52,10 +54,20 @@ function App() {
             <Route index element={<Profile />} />
           </Route>
           <Route path="/my-product">
-            <Route index element={<MyProduct />} />
+            <Route
+              index
+              element={
+                <AuthChecker>
+                  <MyProduct />
+                </AuthChecker>
+              }
+            />
           </Route>
           <Route path="/edit/:id">
             <Route index element={<EditProduct />} />
+          </Route>
+          <Route path="/product-detail/">
+            <Route index element={<ProductDetail />} />
           </Route>
         </Routes>
       </div>

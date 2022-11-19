@@ -1,6 +1,6 @@
 const Pool = require("../config/Database");
 
-const create = (data) => {
+const createUser = (data) => {
   const { id, email, password, fullname, role } = data;
   return new Promise((resolve, reject) => {
     Pool.query(
@@ -15,6 +15,17 @@ const create = (data) => {
       }
     );
   });
+};
+
+const updateUser = (id, data) => {
+  const { email, password, fullname, role, verification } = data;
+  return Pool.query(
+    `UPDATE users SET email='${email}', password='${password}', fullname='${fullname}', role='${role}', verification='${verification}'`
+  );
+};
+
+const deleteUser = (id) => {
+  return Pool.query(`DELETE FROM users WHERE id='${id}'`);
 };
 
 const findEmail = (email) => {
@@ -64,4 +75,4 @@ const verificationEmail = (email) => {
   });
 };
 
-module.exports = { create, findEmail, findRole, verificationEmail };
+module.exports = { createUser, findEmail, findRole, verificationEmail };

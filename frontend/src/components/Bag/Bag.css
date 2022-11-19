@@ -101,3 +101,23 @@
   right: 410px;
   bottom: 36px;
 }
+.container-bag {
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  width: 80%;
+  height: 86vh;
+  left: 18vh;
+  right: auto;
+  background-color: #8e8e93;
+}
+.container-bag-left {
+  width: 70%;
+  height: 100vh;
+  background-color: bisque;
+}
+.container-bag-right {
+  width: 30%;
+  height: 100vh;
+  background-color: blanchedalmond;
+}
