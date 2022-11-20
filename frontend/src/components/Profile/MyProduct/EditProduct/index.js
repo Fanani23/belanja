@@ -36,7 +36,12 @@ const EditProduct = () => {
   };
 
   const getProductById = async () => {
-    const response = await axios.get(`http://localhost:3010/product/${id}`);
+    let token = localStorage.getItem("token");
+    const response = await axios.get(`http://localhost:3010/product/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
     setProductName(response.data.data[0].product_name);
     setStock(response.data.data[0].stock);
     setPrice(response.data.data[0].price);

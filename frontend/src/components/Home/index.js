@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Modal from "react-modal";
 import Logo from "../../images/Logo.svg";
 import { ReactComponent as SearchIcon } from "../../images/Search.svg";
 import { ReactComponent as FilterIcon } from "../../images/Filter.svg";
 import { ReactComponent as ShoppingIcon } from "../../images/Shopping.svg";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import Carousel from "react-multi-carousel";
 import Card from "react-bootstrap/Card";
 import Dropdown from "react-bootstrap/Dropdown";
@@ -18,7 +19,11 @@ const Home = () => {
   const [openFilter, setOpenFilter] = useState(false);
   const closeFilterModal = () => setOpenFilter(false);
   const openFilterModal = () => setOpenFilter(true);
-
+  // Navigate
+  const navigate = useNavigate();
+  // Handle data
+  const [product, setProduct] = useState([]);
+  // First carousel
   const responsiveTopCarousel = {
     dekstop: {
       breakpoint: { max: 2566, min: 1366 },
@@ -33,7 +38,7 @@ const Home = () => {
       items: 1,
     },
   };
-
+  // Second carousel
   const responsiveBotCarousel = {
     dekstop: {
       breakpoint: { max: 2566, min: 1366 },
@@ -48,7 +53,7 @@ const Home = () => {
       items: 1,
     },
   };
-
+  // Modal style
   const modalStyle = {
     content: {
       width: "30%",
@@ -62,7 +67,26 @@ const Home = () => {
     },
   };
 
-  const navigate = useNavigate();
+  // Fetch data
+  const getProduct = async () => {
+    let token = localStorage.getItem("token");
+    console.log("My token", token);
+    try {
+      const response = await axios.get(`http://localhost:3010/product`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setProduct(response.data.result);
+      console.log(response.data.result);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    getProduct();
+  }, []);
 
   return (
     <div className="container-home">
@@ -428,288 +452,65 @@ const Home = () => {
             </div>
           </Carousel>
         </div>
-        <div className="mt-5 head-new">
-          <p className="cat-new mb-1">New</p>
-          <p className="new-info mb-1">What are you currently looking for</p>
-        </div>
-        <div className="mt-4 card-box">
-          <div className="card-items">
-            <Card className="card-product">
-              <Card.Img
-                variant="top"
-                src={require("../../images/Product.png")}
-              />
-              <Card.Body className="card-body">
-                <Card.Title className="card-title">
-                  Men's formal suit - Black & White
-                </Card.Title>
-                <Card.Text className="card-price">$ 40.0</Card.Text>
-                <Card.Text className="card-store">Zalora Cloth</Card.Text>
-              </Card.Body>
-            </Card>
-            <Card className="card-product">
-              <Card.Img
-                variant="top"
-                src={require("../../images/Product.png")}
-              />
-              <Card.Body className="card-body">
-                <Card.Title className="card-title">
-                  Men's formal suit - Black & White
-                </Card.Title>
-                <Card.Text className="card-price">$ 40.0</Card.Text>
-                <Card.Text className="card-store">Zalora Cloth</Card.Text>
-              </Card.Body>
-            </Card>
-            <Card className="card-product">
-              <Card.Img
-                variant="top"
-                src={require("../../images/Product.png")}
-              />
-              <Card.Body className="card-body">
-                <Card.Title className="card-title">
-                  Men's formal suit - Black & White
-                </Card.Title>
-                <Card.Text className="card-price">$ 40.0</Card.Text>
-                <Card.Text className="card-store">Zalora Cloth</Card.Text>
-              </Card.Body>
-            </Card>
-            <Card className="card-product">
-              <Card.Img
-                variant="top"
-                src={require("../../images/Product.png")}
-              />
-              <Card.Body className="card-body">
-                <Card.Title className="card-title">
-                  Men's formal suit - Black & White
-                </Card.Title>
-                <Card.Text className="card-price">$ 40.0</Card.Text>
-                <Card.Text className="card-store">Zalora Cloth</Card.Text>
-              </Card.Body>
-            </Card>
-            <Card className="card-product">
-              <Card.Img
-                variant="top"
-                src={require("../../images/Product.png")}
-              />
-              <Card.Body className="card-body">
-                <Card.Title className="card-title">
-                  Men's formal suit - Black & White
-                </Card.Title>
-                <Card.Text className="card-price">$ 40.0</Card.Text>
-                <Card.Text className="card-store">Zalora Cloth</Card.Text>
-              </Card.Body>
-            </Card>
+        <section>
+          <div className="mt-5 head-new">
+            <p className="cat-new mb-1">New</p>
+            <p className="new-info mb-1">What are you currently looking for</p>
           </div>
-          <div className="mt-4 card-items">
-            <Card className="card-product">
-              <Card.Img
-                variant="top"
-                src={require("../../images/Product.png")}
-              />
-              <Card.Body className="card-body">
-                <Card.Title className="card-title">
-                  Men's formal suit - Black & White
-                </Card.Title>
-                <Card.Text className="card-price">$ 40.0</Card.Text>
-                <Card.Text className="card-store">Zalora Cloth</Card.Text>
-              </Card.Body>
-            </Card>
-            <Card className="card-product">
-              <Card.Img
-                variant="top"
-                src={require("../../images/Product.png")}
-              />
-              <Card.Body className="card-body">
-                <Card.Title className="card-title">
-                  Men's formal suit - Black & White
-                </Card.Title>
-                <Card.Text className="card-price">$ 40.0</Card.Text>
-                <Card.Text className="card-store">Zalora Cloth</Card.Text>
-              </Card.Body>
-            </Card>
-            <Card className="card-product">
-              <Card.Img
-                variant="top"
-                src={require("../../images/Product.png")}
-              />
-              <Card.Body className="card-body">
-                <Card.Title className="card-title">
-                  Men's formal suit - Black & White
-                </Card.Title>
-                <Card.Text className="card-price">$ 40.0</Card.Text>
-                <Card.Text className="card-store">Zalora Cloth</Card.Text>
-              </Card.Body>
-            </Card>
-            <Card className="card-product">
-              <Card.Img
-                variant="top"
-                src={require("../../images/Product.png")}
-              />
-              <Card.Body className="card-body">
-                <Card.Title className="card-title">
-                  Men's formal suit - Black & White
-                </Card.Title>
-                <Card.Text className="card-price">$ 40.0</Card.Text>
-                <Card.Text className="card-store">Zalora Cloth</Card.Text>
-              </Card.Body>
-            </Card>
-            <Card className="card-product">
-              <Card.Img
-                variant="top"
-                src={require("../../images/Product.png")}
-              />
-              <Card.Body className="card-body">
-                <Card.Title className="card-title">
-                  Men's formal suit - Black & White
-                </Card.Title>
-                <Card.Text className="card-price">$ 40.0</Card.Text>
-                <Card.Text className="card-store">Zalora Cloth</Card.Text>
-              </Card.Body>
-            </Card>
+          <div className="mt-4 card-box">
+            <div className="card-items">
+              {product ? (
+                product.map((item) => (
+                  <Card className="card-product">
+                    <Card.Img variant="top" src={item.photo} />
+                    <Card.Body className="card-body">
+                      <Card.Title className="card-title">
+                        {item.product_name}
+                      </Card.Title>
+                      <Card.Text className="card-price">
+                        Rp. {item.price}
+                      </Card.Text>
+                      <Card.Text className="card-store">Zalora Cloth</Card.Text>
+                    </Card.Body>
+                  </Card>
+                ))
+              ) : (
+                <h2>...Loading</h2>
+              )}
+            </div>
           </div>
-        </div>
-        <div className="mt-5 head-new">
-          <p className="cat-new mb-1">Popular</p>
-          <p className="new-pop mb-1">
-            Find clothes that are trending recently
-          </p>
-        </div>
-        <div className="mt-4 mb-5 card-box">
-          <div className="card-items">
-            <Card className="card-product">
-              <Card.Img
-                variant="top"
-                src={require("../../images/Product.png")}
-              />
-              <Card.Body className="card-body">
-                <Card.Title className="card-title">
-                  Men's formal suit - Black & White
-                </Card.Title>
-                <Card.Text className="card-price">$ 40.0</Card.Text>
-                <Card.Text className="card-store">Zalora Cloth</Card.Text>
-              </Card.Body>
-            </Card>
-            <Card className="card-product">
-              <Card.Img
-                variant="top"
-                src={require("../../images/Product.png")}
-              />
-              <Card.Body className="card-body">
-                <Card.Title className="card-title">
-                  Men's formal suit - Black & White
-                </Card.Title>
-                <Card.Text className="card-price">$ 40.0</Card.Text>
-                <Card.Text className="card-store">Zalora Cloth</Card.Text>
-              </Card.Body>
-            </Card>
-            <Card className="card-product">
-              <Card.Img
-                variant="top"
-                src={require("../../images/Product.png")}
-              />
-              <Card.Body className="card-body">
-                <Card.Title className="card-title">
-                  Men's formal suit - Black & White
-                </Card.Title>
-                <Card.Text className="card-price">$ 40.0</Card.Text>
-                <Card.Text className="card-store">Zalora Cloth</Card.Text>
-              </Card.Body>
-            </Card>
-            <Card className="card-product">
-              <Card.Img
-                variant="top"
-                src={require("../../images/Product.png")}
-              />
-              <Card.Body className="card-body">
-                <Card.Title className="card-title">
-                  Men's formal suit - Black & White
-                </Card.Title>
-                <Card.Text className="card-price">$ 40.0</Card.Text>
-                <Card.Text className="card-store">Zalora Cloth</Card.Text>
-              </Card.Body>
-            </Card>
-            <Card className="card-product">
-              <Card.Img
-                variant="top"
-                src={require("../../images/Product.png")}
-              />
-              <Card.Body className="card-body">
-                <Card.Title className="card-title">
-                  Men's formal suit - Black & White
-                </Card.Title>
-                <Card.Text className="card-price">$ 40.0</Card.Text>
-                <Card.Text className="card-store">Zalora Cloth</Card.Text>
-              </Card.Body>
-            </Card>
+        </section>
+
+        <section>
+          <div className="mt-5 head-new">
+            <p className="cat-new mb-1">Popular</p>
+            <p className="new-pop mb-1">
+              Find clothes that are trending recently
+            </p>
           </div>
-          <div className="mt-4 card-items">
-            <Card className="card-product">
-              <Card.Img
-                variant="top"
-                src={require("../../images/Product.png")}
-              />
-              <Card.Body className="card-body">
-                <Card.Title className="card-title">
-                  Men's formal suit - Black & White
-                </Card.Title>
-                <Card.Text className="card-price">$ 40.0</Card.Text>
-                <Card.Text className="card-store">Zalora Cloth</Card.Text>
-              </Card.Body>
-            </Card>
-            <Card className="card-product">
-              <Card.Img
-                variant="top"
-                src={require("../../images/Product.png")}
-              />
-              <Card.Body className="card-body">
-                <Card.Title className="card-title">
-                  Men's formal suit - Black & White
-                </Card.Title>
-                <Card.Text className="card-price">$ 40.0</Card.Text>
-                <Card.Text className="card-store">Zalora Cloth</Card.Text>
-              </Card.Body>
-            </Card>
-            <Card className="card-product">
-              <Card.Img
-                variant="top"
-                src={require("../../images/Product.png")}
-              />
-              <Card.Body className="card-body">
-                <Card.Title className="card-title">
-                  Men's formal suit - Black & White
-                </Card.Title>
-                <Card.Text className="card-price">$ 40.0</Card.Text>
-                <Card.Text className="card-store">Zalora Cloth</Card.Text>
-              </Card.Body>
-            </Card>
-            <Card className="card-product">
-              <Card.Img
-                variant="top"
-                src={require("../../images/Product.png")}
-              />
-              <Card.Body className="card-body">
-                <Card.Title className="card-title">
-                  Men's formal suit - Black & White
-                </Card.Title>
-                <Card.Text className="card-price">$ 40.0</Card.Text>
-                <Card.Text className="card-store">Zalora Cloth</Card.Text>
-              </Card.Body>
-            </Card>
-            <Card className="card-product">
-              <Card.Img
-                variant="top"
-                src={require("../../images/Product.png")}
-              />
-              <Card.Body className="card-body">
-                <Card.Title className="card-title">
-                  Men's formal suit - Black & White
-                </Card.Title>
-                <Card.Text className="card-price">$ 40.0</Card.Text>
-                <Card.Text className="card-store">Zalora Cloth</Card.Text>
-              </Card.Body>
-            </Card>
+          <div className="mt-4 card-box">
+            <div className="card-items">
+              {product ? (
+                product.map((item) => (
+                  <Card className="card-product">
+                    <Card.Img variant="top" src={item.photo} />
+                    <Card.Body className="card-body">
+                      <Card.Title className="card-title">
+                        {item.product_name}
+                      </Card.Title>
+                      <Card.Text className="card-price">
+                        Rp. {item.price}
+                      </Card.Text>
+                      <Card.Text className="card-store">Zalora Cloth</Card.Text>
+                    </Card.Body>
+                  </Card>
+                ))
+              ) : (
+                <h2>...Loading</h2>
+              )}
+            </div>
           </div>
-        </div>
+        </section>
       </div>
     </div>
   );
