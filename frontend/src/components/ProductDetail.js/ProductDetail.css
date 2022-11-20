@@ -1,0 +1,220 @@
+.container-product {
+  width: 100%;
+  background-color: blanchedalmond;
+}
+.container-nav {
+  width: 100%;
+  height: 100px;
+}
+.container-p-b {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  width: 89%;
+  left: 5%;
+  right: auto;
+  background-color: cadetblue;
+}
+.top-b {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.top-b-left {
+  width: 30%;
+  height: 378px;
+  background-color: bisque;
+}
+.top-b-left img {
+  width: 378px;
+  height: 378px;
+}
+.top-b-right {
+  width: 67%;
+  height: 378px;
+  font-family: "Metropolis";
+  background-color: chartreuse;
+}
+.trb-name {
+  height: 28px;
+  font-style: normal;
+  font-size: 28px;
+  font-weight: 600;
+  line-height: 28px;
+  text-align: start;
+  color: #222222;
+}
+.trb-brand {
+  width: 95px;
+  height: 16px;
+  font-weight: 500;
+  font-style: normal;
+  font-size: 16px;
+  line-height: 16px;
+  text-align: start;
+  color: #9b9b9b;
+}
+.trb-price {
+  width: 39px;
+  height: 16px;
+  font-weight: 500;
+  font-style: normal;
+  font-size: 16px;
+  line-height: 16px;
+  text-align: start;
+  color: #9b9b9b;
+}
+.price-val {
+  height: 33px;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 33px;
+  line-height: 33px;
+  text-align: start;
+  color: #222222;
+}
+.trb-color {
+  width: 42px;
+  height: 16px;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 16px;
+  text-align: start;
+  color: #222222;
+}
+.trb-sa-group {
+  display: flex;
+  flex-direction: row;
+  gap: 10%;
+}
+.trb-size {
+  height: 16px;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 16px;
+  text-align: start;
+  color: #222222;
+}
+.trb-btn {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+}
+.trb-btn-cht {
+  width: 160px;
+  height: 48px;
+  border-radius: 24px;
+  border: 1px solid #222222;
+  color: #222222;
+}
+.trb-btn-addbag {
+  width: 160px;
+  height: 48px;
+  border-radius: 24px;
+  border: 1px solid #222222;
+  color: #222222;
+}
+.trb-btn-buy {
+  width: 343px;
+  height: 48px;
+  border-radius: 24px;
+  border: 1px solid #222222;
+  color: #222222;
+}
+.center-b {
+  width: 100%;
+  height: 578px;
+  display: flex;
+  flex-direction: column;
+  font-family: "Metropolis";
+  gap: 2rem;
+  background-color: coral;
+}
+.center-b-1 {
+  width: 233px;
+  height: 28px;
+  font-style: normal;
+  text-align: start;
+  font-weight: 600;
+  font-size: 28px;
+  line-height: 28px;
+  color: #222222;
+}
+.center-b-2a {
+  width: 95px;
+  height: 20px;
+  font-style: normal;
+  text-align: start;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 20px;
+  color: #222222;
+}
+.center-b-2b {
+  height: 20px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 20px;
+  text-align: start;
+  color: #db3022;
+}
+.center-b-3a {
+  width: 112px;
+  height: 20px;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 20px;
+  text-align: start;
+  color: #222222;
+}
+.center-b-3b {
+  height: 140px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 24px;
+  text-align: start;
+  color: #9b9b9b;
+}
+.center-b-4a {
+  width: 208px;
+  height: 28px;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 28px;
+  line-height: 28px;
+  text-align: start;
+  color: #222222;
+}
+.bottom-b {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  font-family: "Metropolis";
+  gap: 1rem;
+  background-color: rgb(185, 118, 118);
+}
+.bottom-b-1a {
+  width: 346px;
+  height: 24px;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 34px;
+  line-height: 22px;
+  text-align: start;
+  color: #222222;
+}
+.bottom-b-1b {
+  width: 161px;
+  height: 12px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 12px;
+  text-align: start;
+  color: #9b9b9b;
+}
