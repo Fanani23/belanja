@@ -36,6 +36,18 @@ const productController = {
         response(res, 404, false, err, "get data fail");
       });
   },
+  getByCatID: (req, res, next) => {
+    productModel
+      .getProductByCategoryId(req.params.category_id)
+      .then((result) => {
+        res.status(200).send({ result: result.rows });
+      })
+      .catch((err) => {
+        res
+          .status(404)
+          .send({ msg: "Can't get product data!", err: err.message });
+      });
+  },
   create: async (req, res, next) => {
     // req.body.stock = parseInt(req.body.stock);
     // req.body.price = parseInt(req.body.price);

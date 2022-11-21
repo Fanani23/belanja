@@ -24,6 +24,16 @@ const getProductById = (id) => {
   );
 };
 
+const getProductByCategoryId = (category_id) => {
+  return Pool.query(
+    `SELECT product.id, product.product_name, category.category_name as category_name, product.stock, product.price, product.photo
+    FROM product 
+    INNER JOIN category 
+    ON product.category_id = category.id
+    WHERE product.id = '${category_id}'`
+  );
+};
+
 const createProduct = (data) => {
   const { product_name, category_id, stock, price, photo } = data;
   return Pool.query(
@@ -51,6 +61,7 @@ const deleteProduct = (id) => {
 module.exports = {
   getProduct,
   getProductById,
+  getProductByCategoryId,
   createProduct,
   updateProduct,
   deleteProduct,

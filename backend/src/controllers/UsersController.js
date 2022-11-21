@@ -28,21 +28,20 @@ const usersController = {
       );
     }
 
-    let {
-      rows: [role],
-    } = await findRole(req.params.role);
-    if (!role) {
-      return response(res, 404, false, "Role not found!", "Register failed!");
-    }
+    // let {
+    //   rows: [role],
+    // } = await findRole(req.params.role);
+    // if (!role) {
+    //   return response(res, 404, false, "Role not found!", "Register failed!");
+    // }
 
-    let digitsOTP = "0123456789";
-    let OTP = "";
-    for (let i = 0; 1 < 6; i++) {
-      OTP += digitsOTP[Math.floor(Math.random() * 10)];
-    }
+    // let digitsOTP = "0123456789";
+    // let OTP = "";
+    // for (let i = 0; 1 < 6; i++) {
+    //   OTP += digitsOTP[Math.floor(Math.random() * 10)];
+    // }
 
-    let salt = bcrypt.genSaltSync(10);
-    let password = bcrypt.hashSync(req.body.password, salt);
+    let password = bcrypt.hashSync(req.body.password);
     let data = {
       id: uuidv4(),
       email: req.body.email,
@@ -55,12 +54,12 @@ const usersController = {
       const result = await createUser(data);
       if (result) {
         console.log(result);
-        let verifyURL = `http://${Host}:${Port}/${req.body.email}/${OTP}`;
-        let sendEmail = email(data.email, OTP, verifyURL, data.fullname);
-        if (sendEmail == "Email not send!") {
-          return response(res, 404, false, null, "Register failed!");
-        }
-        response(res, 200, true, { email: data.email }, "Register success");
+        // let verifyURL = `http://${Host}:${Port}/${req.body.email}/${OTP}`;
+        // let sendEmail = email(data.email, OTP, verifyURL, data.fullname);
+        // if (sendEmail == "Email not send!") {
+        //   return response(res, 404, false, null, "Register failed!");
+        // }
+        response(res, 200, true, true, "Register success");
       }
     } catch (err) {
       console.log(err);

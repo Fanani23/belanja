@@ -1,11 +1,11 @@
 const Pool = require("../config/Database");
 
 const createUser = (data) => {
-  const { id, email, password, fullname, role, verification, otp } = data;
+  const { id, email, password, fullname, role } = data;
   return new Promise((resolve, reject) => {
     Pool.query(
-      `INSERT INTO users ( id, email, password, fullname, role, verification, otp)
-            VALUES ('${id}', '${email}', '${password}', '${fullname}', '${role}', '${verification}', '${otp}')`,
+      `INSERT INTO users ( id, email, password, fullname, role,)
+            VALUES ('${id}', '${email}', '${password}', '${fullname}', '${role}')`,
       (err, result) => {
         if (!err) {
           resolve(result);
@@ -52,7 +52,7 @@ const findRole = (role) => {
 const verificationEmail = (email) => {
   return new Promise((resolve, reject) => {
     Pool.query(
-      `UPDATE users SET verif=1 WHERE 'email'='${email}'`,
+      `UPDATE users SET verification=1 WHERE 'email'='${email}'`,
       (err, result) => {
         if (!err) {
           resolve(result);
