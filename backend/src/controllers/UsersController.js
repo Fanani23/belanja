@@ -1,6 +1,6 @@
 const { response } = require(`../middleware/Common`);
 const {
-  create,
+  createUser,
   findEmail,
   findRole,
   verificationEmail,
@@ -8,6 +8,7 @@ const {
 const bcrypt = require("bcryptjs");
 const { v4: uuidv4 } = require("uuid");
 const { generateToken } = require(`../helper/Auth`);
+const email = require("../middleware/VerificationEmail");
 
 const Port = process.env.PORT;
 const Host = process.env.HOST;
@@ -51,15 +52,15 @@ const usersController = {
     };
 
     try {
-      const result = await create(data);
+      const result = await createUser(data);
       if (result) {
         console.log(result);
-        let verifyURL = `http://${HOST}:${PORT}/${req.body.email}/${OTP}`;
-        let sendEmail = newEmail(data.email, OTP, verifyURL, data.fullname);
+        let verifyURL = `http://${Host}:${Port}/${req.body.email}/${OTP}`;
+        let sendEmail = email(data.email, OTP, verifyURL, data.fullname);
         if (sendEmail == "Email not send!") {
           return response(res, 404, false, null, "Register failed!");
         }
-        response(res, 200, true, { newEmail: data.email }, "Register success");
+        response(res, 200, true, { email: data.email }, "Register success");
       }
     } catch (err) {
       console.log(err);
@@ -76,6 +77,9 @@ const usersController = {
     if (!users) {
       return response(res, 404, false, null, "Email not found!");
     }
+    if (users.verification == 0) {
+      return response(res, 404, false, null, "Email not verified!");
+    }
     const password = req.body.password;
     const validation = bcrypt.compareSync(password, users.password);
     if (!validation) {
@@ -83,6 +87,8 @@ const usersController = {
     }
 
     delete users.password;
+    delete users.otp;
+    delete users.verification;
     let payload = {
       email: users.email,
       role: users.role,
@@ -91,21 +97,28 @@ const usersController = {
 
     response(res, 200, true, users, "login success");
   },
-};
-otp: async (req, res, next) => {
-  console.log("email", req.params.email);
-  console.log("password", req.params.otp);
-  let {
-    rows: [users],
-  } = await findEmail(req.params.email);
-  if (!users) {
-    return response(res, 404, false, null, " email not found");
-  }
-  if (users.otp == req.params.otp) {
-    const result = await verificationEmail(req.params.email);
-    return response(res, 200, true, result, " verification email success");
-  }
-  return response(res, 404, false, null, " wrong otp please check your email");
+
+  otp: async (req, res, next) => {
+    console.log("email", req.params.email);
+    console.log("password", req.params.otp);
+    let {
+      rows: [users],
+    } = await findEmail(req.params.email);
+    if (!users) {
+      return response(res, 404, false, null, "Email not found!");
+    }
+    if (users.otp == req.params.otp) {
+      const result = await verificationEmail(req.params.email);
+      return response(res, 200, true, result, " verification email success");
+    }
+    return response(
+      res,
+      404,
+      false,
+      null,
+      " wrong otp please check your email"
+    );
+  },
 };
 
 exports.usersController = usersController;
