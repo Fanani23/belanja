@@ -137,6 +137,11 @@ const MyProduct = () => {
     }
   };
 
+  const logout = () => {
+    localStorage.clear();
+    window.location.reload(false);
+  };
+
   useEffect(() => {
     getProduct();
   }, [search, sortby, sort]);
@@ -163,7 +168,9 @@ const MyProduct = () => {
         <nav className="navbar navbar-box">
           <ul className="navbar-nav">
             <li>
-              <img src={Logo} alt="Belanja" className="logo-home" />
+              <Link to={`/home-login`} style={{ textDecoration: "none" }}>
+                <img src={Logo} alt="Belanja" className="logo-home" />
+              </Link>
             </li>
             <li className="nav-item active search-box">
               <div className="position-relative">
@@ -199,9 +206,17 @@ const MyProduct = () => {
               </button>
             </li>
             <li className="nav-item">
-              <button type="button" className="profile-box">
-                <ProfileIcon />
-              </button>
+              <Dropdown className="profile-box">
+                <Dropdown.Toggle className="dropdown" variant="secondary">
+                  <ProfileIcon />
+                </Dropdown.Toggle>
+                <Dropdown.Menu>
+                  <Dropdown.Item href="/profile">My Profile</Dropdown.Item>
+                  <Dropdown.Item onClick={() => logout()} href="/">
+                    Logout
+                  </Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
             </li>
           </ul>
         </nav>

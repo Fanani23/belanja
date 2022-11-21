@@ -14,12 +14,18 @@ import { ReactComponent as SideShoppingIcon } from "../../images/SideShopping.sv
 import { ReactComponent as LineTop } from "../../images/LineTop.svg";
 import { ReactComponent as LineBot } from "../../images/LineBot.svg";
 import { ReactComponent as BotProfile } from "../../images/BotProfile.svg";
+import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import Dropdown from "react-bootstrap/Dropdown";
 import "@fontsource/metropolis";
 import "./Profile.css";
 
 const Profile = () => {
+  const logout = () => {
+    localStorage.clear();
+    window.location.reload(false);
+  };
+
   const navigate = useNavigate();
   return (
     <div className="container-home-profile">
@@ -27,7 +33,9 @@ const Profile = () => {
         <nav className="navbar navbar-box">
           <ul className="navbar-nav">
             <li>
-              <img src={Logo} alt="Belanja" className="logo-home" />
+              <Link to={`/home-login`} style={{ textDecoration: "none" }}>
+                <img src={Logo} alt="Belanja" className="logo-home" />
+              </Link>
             </li>
             <li className="nav-item active search-box">
               <div className="position-relative">
@@ -63,9 +71,17 @@ const Profile = () => {
               </button>
             </li>
             <li className="nav-item">
-              <button type="button" className="profile-box">
-                <ProfileIcon />
-              </button>
+              <Dropdown className="profile-box">
+                <Dropdown.Toggle className="dropdown" variant="secondary">
+                  <ProfileIcon />
+                </Dropdown.Toggle>
+                <Dropdown.Menu>
+                  <Dropdown.Item href="/profile">My Profile</Dropdown.Item>
+                  <Dropdown.Item onClick={() => logout()} href="/">
+                    Logout
+                  </Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
             </li>
           </ul>
         </nav>

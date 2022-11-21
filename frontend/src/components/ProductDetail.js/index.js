@@ -8,6 +8,9 @@ import { ReactComponent as NotifIcon } from "../../images/Bell.svg";
 import { ReactComponent as MailIcon } from "../../images/Mail.svg";
 import { ReactComponent as ProfileIcon } from "../../images/Profile.svg";
 import { ReactComponent as Pdline } from "../../images/Pd-line.svg";
+import { Link } from "react-router-dom";
+import Dropdown from "react-bootstrap/Dropdown";
+import Card from "react-bootstrap/Card";
 import axios from "axios";
 import ColorPicker from "react-circle-color-picker";
 import { useNavigate } from "react-router-dom";
@@ -16,6 +19,7 @@ import "@fontsource/metropolis";
 
 const ProductDetail = () => {
   // Handler data
+  const [product, setProduct] = useState([]);
   const [product_name, setProductName] = useState("");
   const [stock, setStock] = useState();
   const [price, setPrice] = useState();
@@ -40,8 +44,30 @@ const ProductDetail = () => {
     console.log(response.data.data[0].product_name);
   };
 
+  const getProduct = async () => {
+    let token = localStorage.getItem("token");
+    console.log("My token", token);
+    try {
+      const response = await axios.get(`http://localhost:3010/product`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setProduct(response.data.result);
+      console.log(response.data.result);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const logout = () => {
+    localStorage.clear();
+    window.location.reload(false);
+  };
+
   useEffect(() => {
     getProductById();
+    getProduct();
   }, []);
 
   return (
@@ -50,7 +76,9 @@ const ProductDetail = () => {
         <nav className="navbar navbar-box">
           <ul className="navbar-nav">
             <li>
-              <img src={Logo} alt="Belanja" className="logo-home" />
+              <Link to={`/home-login`} style={{ textDecoration: "none" }}>
+                <img src={Logo} alt="Belanja" className="logo-home" />
+              </Link>
             </li>
             <li className="nav-item active search-box">
               <div className="position-relative">
@@ -90,13 +118,17 @@ const ProductDetail = () => {
               </button>
             </li>
             <li className="nav-item">
-              <button
-                type="button"
-                className="profile-box"
-                onClick={() => navigate("/profile")}
-              >
-                <ProfileIcon />
-              </button>
+              <Dropdown className="profile-box">
+                <Dropdown.Toggle className="dropdown" variant="secondary">
+                  <ProfileIcon />
+                </Dropdown.Toggle>
+                <Dropdown.Menu>
+                  <Dropdown.Item href="/profile">My Profile</Dropdown.Item>
+                  <Dropdown.Item onClick={() => logout()} href="/">
+                    Logout
+                  </Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
             </li>
           </ul>
         </nav>
@@ -166,12 +198,42 @@ const ProductDetail = () => {
             <Pdline />
           </div>
         </div>
-        <div className="bottom-b mt-5">
+        <section className="bottom-b mt-5">
           <div>
-            <p className="bottom-b-1a mb-1">You can also like this</p>
+            <p className="bottom-b-1a mb-2">You can also like this</p>
             <p className="bottom-b-1b">You’ve never seen it before!</p>
           </div>
-        </div>
+          <div className="mt-4 card-box">
+            <div className="card-items">
+              {product ? (
+                product.map((item) => (
+                  <Card className="card-product">
+                    <Link
+                      to={`/product-detail/${item.id}`}
+                      style={{ textDecoration: "none" }}
+                      action="replace"
+                    >
+                      <Card.Img variant="top" src={item.photo} />
+                      <Card.Body className="card-body">
+                        <Card.Title className="card-title">
+                          {item.product_name}
+                        </Card.Title>
+                        <Card.Text className="card-price">
+                          Rp. {item.price}
+                        </Card.Text>
+                        <Card.Text className="card-store">
+                          Zalora Cloth
+                        </Card.Text>
+                      </Card.Body>
+                    </Link>
+                  </Card>
+                ))
+              ) : (
+                <h2>...Loading</h2>
+              )}
+            </div>
+          </div>
+        </section>
       </div>
     </div>
   );

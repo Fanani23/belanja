@@ -1,6 +1,5 @@
 .container-product {
   width: 100%;
-  background-color: blanchedalmond;
 }
 .container-nav {
   width: 100%;
@@ -13,7 +12,6 @@
   width: 89%;
   left: 5%;
   right: auto;
-  background-color: cadetblue;
 }
 .top-b {
   display: flex;
@@ -23,17 +21,17 @@
 .top-b-left {
   width: 30%;
   height: 378px;
-  background-color: bisque;
 }
 .top-b-left img {
   width: 378px;
   height: 378px;
+  border-radius: 12px;
+  border: transparent;
 }
 .top-b-right {
   width: 67%;
   height: 378px;
   font-family: "Metropolis";
-  background-color: chartreuse;
 }
 .trb-name {
   height: 28px;
@@ -130,7 +128,6 @@
   flex-direction: column;
   font-family: "Metropolis";
   gap: 2rem;
-  background-color: coral;
 }
 .center-b-1 {
   width: 233px;
@@ -196,7 +193,6 @@
   flex-direction: column;
   font-family: "Metropolis";
   gap: 1rem;
-  background-color: rgb(185, 118, 118);
 }
 .bottom-b-1a {
   width: 346px;

@@ -158,11 +158,13 @@
 }
 .card-box {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
+  max-width: max-content;
 }
 .card-items {
   display: flex;
-  flex-direction: row;
+  flex-wrap: wrap;
+  max-width: max-content;
   gap: 40px;
 }
 .card-product {

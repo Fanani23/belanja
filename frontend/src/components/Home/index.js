@@ -4,7 +4,7 @@ import Logo from "../../images/Logo.svg";
 import { ReactComponent as SearchIcon } from "../../images/Search.svg";
 import { ReactComponent as FilterIcon } from "../../images/Filter.svg";
 import { ReactComponent as ShoppingIcon } from "../../images/Shopping.svg";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Carousel from "react-multi-carousel";
 import Card from "react-bootstrap/Card";
@@ -23,6 +23,11 @@ const Home = () => {
   const navigate = useNavigate();
   // Handle data
   const [product, setProduct] = useState([]);
+  // Filter
+  const [search, setSearch] = useState("");
+  const [sortby, setSortby] = useState("price");
+  const [sort, setSort] = useState("asc");
+  const [page, setPage] = useState("");
   // First carousel
   const responsiveTopCarousel = {
     dekstop: {
@@ -72,11 +77,9 @@ const Home = () => {
     let token = localStorage.getItem("token");
     console.log("My token", token);
     try {
-      const response = await axios.get(`http://localhost:3010/product`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await axios.get(
+        `http://localhost:3010/product?search=${search}&sortby=${sortby}&sort=${sort}`
+      );
       setProduct(response.data.result);
       console.log(response.data.result);
     } catch (err) {
@@ -84,6 +87,9 @@ const Home = () => {
     }
   };
 
+  useEffect(() => {
+    getProduct();
+  }, [search, sortby, sort]);
   useEffect(() => {
     getProduct();
   }, []);
@@ -94,7 +100,9 @@ const Home = () => {
         <nav className="navbar navbar-box">
           <ul className="navbar-nav">
             <li>
-              <img src={Logo} alt="Belanja" className="logo-home" />
+              <Link to={`/`} style={{ textDecoration: "none" }}>
+                <img src={Logo} alt="Belanja" className="logo-home" />
+              </Link>
             </li>
             <li className="nav-item active search-box">
               <div className="position-relative">
@@ -104,7 +112,11 @@ const Home = () => {
                   placeholder="Search"
                   id="search-navbar"
                 />
-                <label className="search-icon" htmlFor="search-navbar">
+                <label
+                  className="search-icon"
+                  htmlFor="search-navbar"
+                  onChange={(e) => setSearch(e.target.value.toLowerCase())}
+                >
                   <SearchIcon />
                 </label>
               </div>
@@ -461,18 +473,22 @@ const Home = () => {
             <div className="card-items">
               {product ? (
                 product.map((item) => (
-                  <Card className="card-product">
-                    <Card.Img variant="top" src={item.photo} />
-                    <Card.Body className="card-body">
-                      <Card.Title className="card-title">
-                        {item.product_name}
-                      </Card.Title>
-                      <Card.Text className="card-price">
-                        Rp. {item.price}
-                      </Card.Text>
-                      <Card.Text className="card-store">Zalora Cloth</Card.Text>
-                    </Card.Body>
-                  </Card>
+                  <Link to={`/login`} style={{ textDecoration: "none" }}>
+                    <Card className="card-product">
+                      <Card.Img variant="top" src={item.photo} />
+                      <Card.Body className="card-body">
+                        <Card.Title className="card-title">
+                          {item.product_name}
+                        </Card.Title>
+                        <Card.Text className="card-price">
+                          Rp. {item.price}
+                        </Card.Text>
+                        <Card.Text className="card-store">
+                          Zalora Cloth
+                        </Card.Text>
+                      </Card.Body>
+                    </Card>
+                  </Link>
                 ))
               ) : (
                 <h2>...Loading</h2>
@@ -492,18 +508,22 @@ const Home = () => {
             <div className="card-items">
               {product ? (
                 product.map((item) => (
-                  <Card className="card-product">
-                    <Card.Img variant="top" src={item.photo} />
-                    <Card.Body className="card-body">
-                      <Card.Title className="card-title">
-                        {item.product_name}
-                      </Card.Title>
-                      <Card.Text className="card-price">
-                        Rp. {item.price}
-                      </Card.Text>
-                      <Card.Text className="card-store">Zalora Cloth</Card.Text>
-                    </Card.Body>
-                  </Card>
+                  <Link to={`/login`} style={{ textDecoration: "none" }}>
+                    <Card className="card-product">
+                      <Card.Img variant="top" src={item.photo} />
+                      <Card.Body className="card-body">
+                        <Card.Title className="card-title">
+                          {item.product_name}
+                        </Card.Title>
+                        <Card.Text className="card-price">
+                          Rp. {item.price}
+                        </Card.Text>
+                        <Card.Text className="card-store">
+                          Zalora Cloth
+                        </Card.Text>
+                      </Card.Body>
+                    </Card>
+                  </Link>
                 ))
               ) : (
                 <h2>...Loading</h2>
